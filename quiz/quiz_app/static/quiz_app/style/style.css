@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.site-header {
+    min-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 10px;
+    background-color: #4CAF50;
+    border-bottom: 1px solid #ccc;
+}
+
+.nav-left a, .nav-right a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+.home-main-content {
+    height: 89vh;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-row {
+    display: flex;
+    gap: 20px;
+}
+
+.btn {
+    background-color: #28a745;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.big-btn {
+    flex: 1; /* Заставляет кнопки занимать равное пространство */
+    padding: 80px 40px;
+    font-size: 32px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+
+.big-btn:hover {
+    background-color: #2b9742;
+}
+
+.auth-btn {
+    background-color: #007BFF;
+    transition: 0.7s;
+    font-weight: bold;
+}
+
+.auth-btn:hover {
+    background-color: #ba2020;
+    transition: 0.5s;
+}
+
