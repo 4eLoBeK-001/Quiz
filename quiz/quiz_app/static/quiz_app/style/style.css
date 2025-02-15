@@ -36,6 +36,7 @@ body {
     align-items: center;
 }
 
+
 .button-row {
     display: flex;
     gap: 20px;
@@ -76,3 +77,101 @@ body {
     transition: 0.5s;
 }
 
+
+
+.main-content {
+    position: relative;
+    background-color: white;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 1200px;
+    min-height: 85vh;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container-title-text{
+    text-align: center;
+}
+
+.form-container {
+    width: 600px;
+    background: rgb(244, 244, 244);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.243);
+    margin: 0 auto;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 24px;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    font-size: 22px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #33ab4f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 26px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+.btn-submit:hover {
+    background-color: #329347;
+}
+
+select {
+    width: 50%;
+    font-size: 18px;
+    padding: 10px 0 10px 10px;
+    background-color: #fff;
+    border: 1px solid #caced1;
+    border-radius: 0.25rem;
+    color: #000;
+    cursor: pointer;
+}
+
+select:focus {
+    border: 1px solid #007BFF
+}
+
+.form-input, textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 24px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+textarea {
+    resize: vertical;
+}
