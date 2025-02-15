@@ -1,0 +1,27 @@
+{% extends 'base_auth.html' %}
+
+{% block content %}
+<a class="btn home-btn" href="">Вернуться на главную</a>
+<a class="btn back-btn">Вернуться назад</a>
+<div class="login-container">
+    <h1>Авторизация</h1>
+
+    <form action="" method="post" enctype="multipart/form-data" class="form-container">
+        {% csrf_token %}
+
+        <div class="form-error">{{ form.non_field_errors }}</div>
+
+        {% for f in form %}
+        <div class="form-group">
+            <p><label class="form_label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
+            <div class="form_error">{{ f.errors }} </div>
+        </div>
+        {% endfor %}
+        <button class="btn submit-btn" type="submit">Войти</button>
+        <p class="register-link">Нет аккаунта?
+            <a href="">Создайте здесь</a>
+        </p>
+    </form>
+</div>
+
+{% endblock content %}
