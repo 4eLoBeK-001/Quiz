@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from user.forms import LoginUserForm, RegisterUserForm
+from user.models import Statistics
 
 # Create your views here.
 
@@ -29,3 +30,21 @@ def logout_user(request):
     logout(request)
     return redirect(request.META.get('HTTP_REFERER'))
 
+
+def register_user(request):
+    if request.method == 'POST':
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password1'])
+            user.save()
+            Statistics.objects.create(user=user)
+            return redirect(reverse('home'))
+    else:
+        form = RegisterUserForm()
+    
+    context = {
+        'form': form
+    }
+
+    return render(request, 'user/register.html', context)
