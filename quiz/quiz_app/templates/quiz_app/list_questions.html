@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Основной контент -->
+    <main class="main-content">
+
+        <div class="question-title">
+            <a href=""><img src="" class="back-pic"></a>
+            <h1 class="title-hat">{{ quiz }}</h1>
+
+            <form action="" id="isActiveForm" method="post">
+            {% csrf_token %}
+
+                <div class="manage-show">
+                    <label for="is_show">Опубликовать?</label>
+                    <input type="checkbox" name="is_show" id="is_show" class="scale" 
+                    onchange="" {% if quiz.is_show %}checked{% endif %}>
+                </div>
+
+            </form>
+
+
+        </div>
+
+        <div class="manage-panel">
+            <p><a href="{% url 'create_question' quiz.id %}" class="btn manage-btn fs25">Создать вопрос</a></p>
+            
+            <p><a href="" class="btn manage-btn fs25">Начать викторину</a></p>
+            
+            <p><label for="show_hidden">Показать неактивные?</label>
+            <input type="checkbox" name="" id="show_hidden" class="scale13" checked></p>
+        </div>
+
+        {% if messages %}
+        <div class="container-messages">
+            <ul class="messages">
+                <span class="close-button" onclick="">&times;</span>
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="container-question">
+            {% for question in questions %}
+            <div class="card">
+                <div class="card-head-question">
+                    {{ question }}
+                    <label class="switch absolute">
+                        <input type="checkbox" {% if question.is_active %}checked{%endif%} disabled>
+                        <span class="slider round mleft"></span>
+                    </label>
+                </div>
+                {% if question.question_type == 'single' or question.question_type == 'multiple' %}
+
+                <div class="card-conetnt {{ question.question_type }}">
+                    <div class="strogo">
+                    {% for answer in question.answers_t.all %}
+                        <p>{{answer}}</p>
+                    {% endfor %}
+                    </div>
+                    <div class="card-actions card-actions-single">
+                        <a href="">Изменить</a>
+                        <a href="">Подробнее</a>
+                        <a href="{% url 'delete_question' question.quiz.id question.id %}" onclick="">Удалить</a>
+                    </div>
+                </div>
+
+                {% else %}
+
+                <div class="card-conetnt {{ question.question_type }}">
+                    {% for answer in question.answers_t.all %}
+                    <div class="inp-view">
+                        <h2>{{answer}}</h2>
+                    </div>
+                    {% endfor %}
+                    <div class="card-actions card-actions-input">
+                        <a href="">Изменить</a>
+                        <a href="">Подробнее</a>
+                        <a href="{% url 'delete_question' question.quiz.id question.id %}" onclick="">Удалить</a>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </div>
+
+    </main>
+    <script src=""></script>
+
+{% endblock content %}

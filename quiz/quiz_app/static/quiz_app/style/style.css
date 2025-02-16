@@ -9,6 +9,27 @@ body {
     color: #333;
 }
 
+.pd20 {
+    padding: 20px;
+}
+
+.pd10 {
+    padding: 10px;
+}
+
+.fs18{
+    font-size: 18px;
+}
+
+.fs25{
+    font-size: 25px;
+}
+
+.title {
+    text-align: center;
+    margin: 10px;
+}
+
 .site-header {
     min-width: 100%;
     display: flex;
@@ -45,7 +66,6 @@ body {
 .btn {
     background-color: #28a745;
     color: white;
-    font-size: 18px;
     text-decoration: none;
     text-align: center;
     padding: 8px 16px;
@@ -83,7 +103,6 @@ body {
     position: relative;
     background-color: white;
     margin: 20px auto;
-    padding: 20px;
     max-width: 1200px;
     min-height: 85vh;
     height: auto;
@@ -91,8 +110,10 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.container-title-text{
+.container-title-text {
+    padding-top: 10px;
     text-align: center;
+    font-size: 42px;
 }
 
 .form-container {
@@ -114,6 +135,7 @@ body {
     margin-bottom: 5px;
     font-size: 24px;
     color: #555;
+    font-weight: bold;
 }
 
 .form-group input {
@@ -174,4 +196,336 @@ select:focus {
 
 textarea {
     resize: vertical;
+}
+
+.container-quiz{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 10px 15px 150px 15px;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.card-content {
+    padding: 15px;
+    font-size: 22px;
+    color: #555;
+    max-height: 210px;
+}
+
+.card-content p {
+    margin: 5px 0;
+}
+
+.card-head {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+}
+.card-head a{
+    text-decoration: none;
+    color: white;
+}
+
+/* Карточка */
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 1.5s;
+}
+  
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(248, 51, 51, 0.350);
+}
+
+.card-actions-quiz{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-actions-quiz a {
+    display: inline-block; /* Ссылки в строку */
+    color: #4CAF50;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+
+.question-title {
+    background-color: rgb(162, 75, 243); /* Белый фон для основного контента */
+    position: relative;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    height: auto;
+    border-radius: 10px 10px 0 0; /* Скруглённые углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для выделения */
+}
+
+.manage-show {
+    display: flex;
+    flex-direction: column;
+    font-size: 22px;
+    position: absolute;
+    width: auto;
+    top: 50%;
+    right: -65px; 
+    transform: translate(-50%, -50%);
+}
+
+.manage-show *{
+    margin: 10px 0 5px 0;
+}
+
+.scale {
+    transform: scale(2.3);
+}
+
+.title-hat {
+    font-size: 42px;
+}
+
+.manage-panel {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+    background-color: #ebebeb;
+    border-radius: 0 0 10px 10px;
+    
+}
+
+.manage-panel p , .manage-panel label{
+    font-size: 24px;
+    font-weight: bold;
+    /* width: 250px; */
+    margin-left: 10px;
+}
+
+.manage-btn {
+    margin-left: 4px;
+    text-decoration: none;
+    background-color: #61c865;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.manage-btn:hover {
+    background-color: #47e44a;
+    color: white;
+}
+
+
+
+.bottom {
+    margin-top: 35px;
+}
+
+
+.switch {
+    right: 15px;
+    display: inline-block;
+    top: 50%; /* Для центрирования по вертикали */
+    transform: translateY(-50%);
+    width: 80px;
+    height: 34px;
+    cursor: pointer;
+}
+  
+/* Hide default HTML checkbox */
+.switch input {
+    display:none;
+}
+  
+/* The slider */
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.mright {
+    margin-right: 20px;
+}
+
+.mbottom {
+    margin-bottom: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+input:checked + .slider {
+    background-color: #2196F3;
+}
+  
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+  
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+  
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+  
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+/* Контейнер карточек */
+.container-question {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 10px 15px;
+    grid-template-columns: repeat(2, 1fr);
+}
+  
+@media screen and (max-width: 1200px) {
+    .container-question {
+      grid-template-columns: repeat(1, 1fr);
+  }
+}
+  
+/* Карточка */
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 1.5s;
+}
+  
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(248, 51, 51, 0.350);
+}
+
+.absolute{
+    position: absolute;
+}
+
+/* Заголовок вопросов */
+.card-head-question {
+    background-color: #af4c4c;
+    color: white;
+    padding: 15px;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+}
+
+/* Контент карточки */
+.card-conetnt {
+    padding: 15px;
+    font-size: 22px;
+    color: #555;
+    max-height: 210px;
+}
+  
+.card-conetnt p {
+    margin: 5px 0;
+}
+  
+.card-conetnt input{
+    padding: 25px;
+    font-size: 26px;
+    color: #555;
+}
+
+.card-actions {
+    text-align: right;
+}
+
+.single {
+    padding: 15px;
+    font-size: 22px;
+    color: #555;
+}
+  
+.single p {
+    margin: 5px 0;
+}
+
+.card:has(.input-text){
+    display: flex;
+    flex-direction: column;
+}
+  
+.inp-view {
+    margin-bottom: 56px;
+}
+  
+.input-text{
+    padding: 20px 15px;
+    font-size: 22px;
+    color: #4e4e4e;
+}
+  
+.input-text h2{
+    text-align: center;
+    background-color: #d6d6d6;
+    border-radius: 10px;
+}
+
+.card-actions a{
+    margin-left: 10px;
+}
+  
+  
+.card-actions {
+    margin-top: 54px;
+}
+  
+.card-actions a, .card-actions-quiz a {
+    display: inline-block;
+    color: #4CAF50;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.card-actions a:hover, .card-actions-quiz a:hover {
+    color: #ba2020;
+}
+
+
+.mleft {
+    margin-left: 20px;
 }

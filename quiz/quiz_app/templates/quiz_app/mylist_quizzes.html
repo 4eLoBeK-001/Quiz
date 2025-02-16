@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Основной контент -->
+    <main class="main-content pd20">
+        <h1 class="title">Список моих викторин</h1>
+        <div class="container-quiz">
+
+            {% for quiz in quizzes %}
+            <div class="card {{ quiz.get_difficult_display }}">
+
+                <div class="card-head">
+                    <a href="">{{ quiz }}</a>
+                </div>
+
+                <div class="card-content">
+                    <p>Вопросов: {{ quiz.questions_t.count|default:"0" }}</p>
+                    <p>Сложность: {{ quiz.difficult }}</p>
+                    <div class="card-actions-quiz">
+                        <a href="{% url 'list_questions' quiz.id %}">Подробнее</a>
+                        <a href="">Начать викторину</a>
+                        <a href="{% url 'delete_quiz' quiz.id %}" onclick="">Удалить</a>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </main>
+    <script src="{% static 'quiz/script/quiz.js' %}"></script>
+{% endblock content %}
