@@ -104,14 +104,24 @@ def detail_question(request, quiz_id, question_id):
 
     if request.method == 'POST':
         if 'save' in data_post:
-            answers.update(is_correct=False)
-            answer = get_object_or_404(Answer, id=data_post.get('correct_answer'))
-            answer.is_correct = True
-            answer.save()
+            if question.question_type == 'single':
+                selected_answer = get_object_or_404(Answer, id=data_post.get('correct_answer'))
+                answers.update(is_correct=False)
+                selected_answer.is_correct = True
+                selected_answer.save()
+            elif question.question_type == 'multiple':
+                selected_answers = data_post.getlist('correct_answer')
+                answers.update(is_correct=False)
+                for id_selected_answers in selected_answers:
+                    Answer.objects.filter(id=id_selected_answers).update(is_correct=True)
             return redirect(request.META.get('HTTP_REFERER'))
         if 'delete' in data_post:
-            lo
-
+            selected_answer = get_object_or_404(Answer, id=data_post.get('delete'))
+            selected_answer.delete()
+            if not answers.filter(is_correct=True).exists(): # Если нет верных ответов
+                answer_first = answers.first()
+                answer_first.is_correct = True
+                answer_first.save()
             return redirect(request.META.get('HTTP_REFERER'))
             
 
@@ -137,3 +147,5 @@ def delete_answer(request, answer_id):
     answer = get_object_or_404(Answer, id=answer_id)
     answer.delete()
     return redirect(request.META.get('HTTP_REFERER'))
+
+

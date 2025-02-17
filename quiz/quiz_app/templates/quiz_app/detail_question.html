@@ -74,12 +74,12 @@
         <hr>
         <br>
 
-        {% if question.question_type == 'single' or question.question_type == 'multiple' or not question.answers_t.all %}
+        {% if question.question_type == 'single' or question.question_type == 'multiple' or not question.answers.all %}
             {% include 'quiz_app/add_answer.html' %}
         {% endif %}
 
 
     </main>
-    <script src=""></script>
+    <script src="{% static 'quiz_app/script/detail_question.js' %}"></script>
 
 {% endblock content %}
