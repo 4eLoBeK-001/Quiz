@@ -471,6 +471,7 @@ input:checked + .slider:before {
 
 .card-actions {
     text-align: right;
+    margin-top: 44px;
 }
 
 .single {
@@ -509,10 +510,7 @@ input:checked + .slider:before {
 }
   
   
-.card-actions {
-    margin-top: 54px;
-}
-  
+
 .card-actions a, .card-actions-quiz a {
     display: inline-block;
     color: #4CAF50;
@@ -527,5 +525,85 @@ input:checked + .slider:before {
 
 
 .mleft {
+    margin-left: 20px;
+}
+
+
+.answer-title{
+    background-color: #af4c4c;
+    color: aliceblue;
+    margin: 0 0 20px 0;
+    padding: 10px;
+    text-align: center;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.answer-title {
+    position: relative;
+}
+
+.container-answer {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: auto;
+    max-width: 1100px;
+    padding: 0 15px;
+}
+
+.card-answer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+  
+  
+.card-answer label{
+    background-color: white;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 1.5s;
+}
+  
+  
+  
+.card-answer label:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(248, 51, 51, 0.350);
+}
+
+.delete-answer-btn {
+    border: none;
+    border-radius: 6px;
+    color: #eee;
+    box-shadow: 0 0 20px #eee;
+    padding: 5px 8px;
+    background-color: #db1717;
+    cursor: pointer;
+    transition: 0.5s;
+}
+  
+.delete-answer-btn:hover {
+    background-color: #ff0000;
+}
+
+.answer-input {
+    margin-left: 15px;
+    margin-right: 25px;
+}
+
+.answer-text {
+    font-size: 24px;
+}
+
+.answer-text span {
     margin-left: 20px;
 }

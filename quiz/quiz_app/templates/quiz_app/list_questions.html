@@ -57,13 +57,13 @@
 
                 <div class="card-conetnt {{ question.question_type }}">
                     <div class="strogo">
-                    {% for answer in question.answers_t.all %}
+                    {% for answer in question.answers.all %}
                         <p>{{answer}}</p>
                     {% endfor %}
                     </div>
                     <div class="card-actions card-actions-single">
-                        <a href="">Изменить</a>
-                        <a href="">Подробнее</a>
+                        <a href="{% url 'change_question' question.quiz.id question.id %}">Изменить</a>
+                        <a href="{% url 'detail_question' question.quiz.id question.id %}">Подробнее</a>
                         <a href="{% url 'delete_question' question.quiz.id question.id %}" onclick="">Удалить</a>
                     </div>
                 </div>
@@ -71,14 +71,14 @@
                 {% else %}
 
                 <div class="card-conetnt {{ question.question_type }}">
-                    {% for answer in question.answers_t.all %}
+                    {% for answer in question.answers.all %}
                     <div class="inp-view">
                         <h2>{{answer}}</h2>
                     </div>
                     {% endfor %}
                     <div class="card-actions card-actions-input">
                         <a href="">Изменить</a>
-                        <a href="">Подробнее</a>
+                        <a href="{% url 'detail_question' question.quiz.id question.id %}">Подробнее</a>
                         <a href="{% url 'delete_question' question.quiz.id question.id %}" onclick="">Удалить</a>
                     </div>
                 </div>
@@ -89,6 +89,6 @@
         </div>
 
     </main>
-    <script src=""></script>
+    <script src="{% static 'quiz_app/script/questions.js' %}"></script>
 
 {% endblock content %}

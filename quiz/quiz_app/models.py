@@ -51,6 +51,8 @@ class Answer(models.Model):
     is_correct = models.BooleanField(default=False)
     question = models.ForeignKey(Quiestion, on_delete=models.CASCADE, related_name='answers')
 
+    class Meta:
+        ordering = ['id']
     def __str__(self):
         return self.answer_text
 

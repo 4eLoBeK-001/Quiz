@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <main class="main-content">
+        <div class="answer-title">
+            <a href=""><img src="" class="back-pic"></a>
+            <h1 class="answer-title-text">{{ question_title }}</h1>
+        </div>
+        <div class="container-answer">
+        {% if answers %}
+            <form class="form-card-answer" action="" method="post">
+            {% csrf_token %}
+            {% if question.question_type == 'single' %}
+                {% for answer in answers %}
+                <div class="card-answer">
+                    <button type="submit" onclick="" class="delete-answer-btn" name="delete" value="{{ answer.id }}">X</button>
+
+                    <p><input class="answer-input" type="radio" name="correct_answer" id="{{ answer.id }}" value="{{ answer.id }}" {% if answer.is_correct %}checked{% endif %}></p>
+
+                    <p><label class="answer-text" for="{{ answer.id }}">
+                        {{ answer }}</label></p>
+                    <p>{% if answer.is_correct %}<span class="mleft">(Правильный)</span>{% endif %}</p>
+                </div>
+                {% endfor %}
+                <button type="submit" class="save-answer-btn" name="save">Сохранить</button>
+
+            {% elif question.question_type == 'multiple' %}
+
+                {% for answer in answers %}
+                <div class="card-answer">
+                    <button type="submit" onclick="" class="delete-answer-btn" name="delete" value="{{ answer.id }}">X</button>
+
+                    <p><input class="answer-input" type="checkbox" name="correct_answer" id="{{ answer.id }}" value="{{ answer.id }}" {% if answer.is_correct %}checked{% endif %}></p>
+
+                    <p><label class="answer-text" for="{{ answer.id }}">
+                        {{ answer }}</label></p>
+                    <p>{%if answer.is_correct%}<span class="mleft">(Правильный)</span>{%endif%}</p>
+                </div>
+                {% endfor %}
+                <button type="submit" class="save-answer-btn" name="save">Сохранить</button>
+
+            {% else %}
+
+                {% for answer in answers %}
+                <div class="card-answer">
+                    <button type="button" onclick="" class="delete-answer-btn" name="delete" value="{{ answer.id }}">X</button>
+
+                    <p><input class="answer-input" type="radio" name="correct_answer" id="{{ answer.id }}" value="{{ answer.id }}" {% if answer.is_correct %}checked{% endif %}></p>
+
+                    <p><label class="answer-text" for="{{ answer.id }}" id="label-{{ answer.id }}">
+                        {{ answer }}</label>
+                    <input type="text" class="answer-text-input" value="{{ answer }}" id="input-{{ answer.id }}" style="display:none;" oninput="transInput(event)">
+                    <input type="hidden" name="save-write-input" class="save-write">
+                    </p>
+                    <p>{%if answer.is_correct%}<span class="mleft">(Правильный)</span>{%endif%}</p>
+                </div>
+                <input type="checkbox" class="change-input" name="1correct_answer2" id="{{ answer.id }}" value="{{ answer }}" onchange="toggleInput(this)">
+
+                {% endfor %}
+
+                <button type="submit" class="save-input-answer-btn" name="save" value="">Сохранить</button>
+            {% endif %}
+            </form>
+
+        {% else %}
+            <h2>Тут пока пусто</h2>
+        {% endif %}
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        {% if question.question_type == 'single' or question.question_type == 'multiple' or not question.answers_t.all %}
+            {% include 'quiz_app/add_answer.html' %}
+        {% endif %}
+
+
+    </main>
+    <script src=""></script>
+
+{% endblock content %}

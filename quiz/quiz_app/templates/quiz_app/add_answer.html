@@ -1,0 +1,16 @@
+{% load static %}
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-error">{{ form.non_field_errors }}</div>
+
+    {% for f in form %}
+    <div class="form-group answer">
+        <p><label class="form_label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
+        <div class="form_error">{{ f.errors }} </div>
+    </div>
+    {% endfor %}
+    <button type="submit" name="add-answer" value="add-answer1">Создать</button>
+
+</form>
