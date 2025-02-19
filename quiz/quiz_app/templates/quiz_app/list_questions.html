@@ -26,7 +26,7 @@
         <div class="manage-panel">
             <p><a href="{% url 'create_question' quiz.id %}" class="btn manage-btn fs25">Создать вопрос</a></p>
             
-            <p><a href="" class="btn manage-btn fs25">Начать викторину</a></p>
+            <p><a href="{% url 'take_quiz' quiz.id %}" class="btn manage-btn fs25">Начать викторину</a></p>
             
             <p><label for="show_hidden">Показать неактивные?</label>
             <input type="checkbox" name="" id="show_hidden" class="scale13" checked></p>

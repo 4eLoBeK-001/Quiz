@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main-content">
+
+        <div class="question-title">
+            <h1>{{ quiz }}</h1>
+        </div>
+
+        <form action="" method="post">
+        {% csrf_token %}
+            <div class="questions">
+                {% for question in questions %}
+                <div class="question">
+
+                    <div class="head-question">
+                        <h2 class="question-text">{{ question }}</h2>
+                    </div>
+                    
+                    {% if question.question_type == 'single' %}
+                        {% for answer in question.answers.all %}
+                        <div class="content-question">
+                            <input type="radio" name="{{ question.id }}" value="{{ answer.id }}" id="{{ question.id }}" class="scale13">
+                            <label for="{{ question.id }}">{{ answer }}</label>
+                        </div>
+                        {% endfor %}
+                    {% elif question.question_type == 'multiple' %}
+                        {% for answer in question.answers.all %}
+                        <div class="content-question">
+                            <input type="checkbox" name="{{ question.id }}" value="{{ answer.id }}" id="{{ question.id }}" class="scale13">
+                            <label for="{{ question.id }}">{{ answer }}</label>
+                        </div>
+                        {% endfor %}
+
+                    {% else %}
+                    <div class="content-question">
+                        <input type="text" class="take_input" name="{{ question.id }}"  id="{{ question.id }}">
+                    </div>
+                    {% endif %}
+
+                </div>
+                {% endfor %}
+
+            </div>
+            <button type="submit" class="send-answers"><span>Отправить ответы</span></button>
+        </form>
+
+    </main>
+
+{% endblock content %}

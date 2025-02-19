@@ -149,3 +149,50 @@ def delete_answer(request, answer_id):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+def take_quiz(request, quiz_id):
+    quiz = get_object_or_404(Quiz, id=quiz_id)
+    questions = Quiestion.objects.filter(quiz=quiz)
+
+
+    if request.method == 'POST':
+        score = 0
+        percentage = 0
+        
+        for question in questions:
+            if question.question_type == 'single':
+                correct_answer = question.answers.get(is_correct=True)
+                selected_answer = request.POST.get(str(correct_answer.question_id))
+                if str(correct_answer.id) == selected_answer:
+                    score += 1
+
+            elif question.question_type == 'multiple':
+                correct_answers = question.answers.filter(is_correct=True)
+                selected_answers = request.POST.getlist(str(question.id))
+                lst_correct_answers = []
+                for correct_answer in range(correct_answers.count()):
+                    lst_correct_answers.append(str(correct_answers[correct_answer].id))
+
+                if set(lst_correct_answers) == set(selected_answers):
+                    score += 1
+
+            elif question.question_type == 'input-text':
+                correct_answer = question.answers.get(is_correct=True)
+                filled_field = request.POST.get(str(correct_answer.question_id))
+                if correct_answer.answer_text == filled_field:
+                    score += 1
+
+        context = {
+            'quiz': quiz,
+            'questions': questions,
+            'score': score,
+            'percentage': percentage
+        }
+        return render(request, 'quiz_app/quiz_result.html', context)
+        
+    else:
+        
+        context = {
+            'quiz': quiz,
+            'questions': questions,
+        }
+        return render(request, 'quiz_app/take_quiz.html', context)
