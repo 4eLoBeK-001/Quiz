@@ -1,8 +1,10 @@
+from datetime import datetime
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.utils.timezone import now
 
-from quiz_app.models import Answer, Quiestion, Quiz
+from quiz_app.models import Answer, Question, Quiz
 from quiz_app.forms import AddAnswerForm, CreateQuestionForm, CreateQuizForm
 
 # Create your views here.
@@ -47,7 +49,7 @@ def delete_quiz(request, quiz_id):
 
 def list_questions(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
-    questions = Quiestion.objects.filter(quiz=quiz)
+    questions = Question.objects.filter(quiz=quiz)
 
     context = {
         'quiz': quiz,
@@ -74,7 +76,7 @@ def create_question(request, quiz_id):
 
 
 def change_question(request, quiz_id, question_id):
-    question = get_object_or_404(Quiestion, id=question_id)
+    question = get_object_or_404(Question, id=question_id)
     if request.method == 'POST':
         form = CreateQuestionForm(request.POST, instance=question)
         if form.is_valid():
@@ -93,11 +95,11 @@ def change_question(request, quiz_id, question_id):
 
 
 def delete_question(request, question_id, quiz_id):
-    Quiestion.objects.filter(id=question_id, quiz_id=quiz_id).delete()
+    Question.objects.filter(id=question_id, quiz_id=quiz_id).delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
 def detail_question(request, quiz_id, question_id):
-    question = get_object_or_404(Quiestion, id=question_id)
+    question = get_object_or_404(Question, id=question_id)
     answers = Answer.objects.filter(question=question)
 
     data_post = request.POST
@@ -151,46 +153,53 @@ def delete_answer(request, answer_id):
 
 def take_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
-    questions = Quiestion.objects.filter(quiz=quiz)
-
+    questions = Question.objects.filter(quiz=quiz)
+    number_questions = questions.count()
 
     if request.method == 'POST':
-        score = 0
-        percentage = 0
-        
-        for question in questions:
-            if question.question_type == 'single':
-                correct_answer = question.answers.get(is_correct=True)
-                selected_answer = request.POST.get(str(correct_answer.question_id))
-                if str(correct_answer.id) == selected_answer:
-                    score += 1
+        if request.POST:
+            score = 0
+            start_time_str = request.session.get('quiz_start_time')
+            start_time = datetime.fromisoformat(start_time_str)
+            end_time = now()
 
-            elif question.question_type == 'multiple':
-                correct_answers = question.answers.filter(is_correct=True)
-                selected_answers = request.POST.getlist(str(question.id))
-                lst_correct_answers = []
-                for correct_answer in range(correct_answers.count()):
-                    lst_correct_answers.append(str(correct_answers[correct_answer].id))
+            for question in questions:
+                if question.question_type == 'single':
+                    correct_answer = question.answers.get(is_correct=True)
+                    selected_answer = request.POST.get(str(correct_answer.question_id))
+                    if str(correct_answer.id) == selected_answer:
+                        score += 1
 
-                if set(lst_correct_answers) == set(selected_answers):
-                    score += 1
+                elif question.question_type == 'multiple':
+                    correct_answers = question.answers.filter(is_correct=True)
+                    selected_answers = request.POST.getlist(str(question.id))
+                    lst_correct_answers = []
+                    for correct_answer in range(correct_answers.count()):
+                        lst_correct_answers.append(str(correct_answers[correct_answer].id))
 
-            elif question.question_type == 'input-text':
-                correct_answer = question.answers.get(is_correct=True)
-                filled_field = request.POST.get(str(correct_answer.question_id))
-                if correct_answer.answer_text == filled_field:
-                    score += 1
+                    if set(lst_correct_answers) == set(selected_answers):
+                        score += 1
 
+                elif question.question_type == 'input-text':
+                    correct_answer = question.answers.get(is_correct=True)
+                    filled_field = request.POST.get(str(correct_answer.question_id))
+                    if correct_answer.answer_text == filled_field:
+                        score += 1
+
+            percentage = (score/ questions.count()) * 100 # Процент верных ответов
         context = {
             'quiz': quiz,
             'questions': questions,
             'score': score,
-            'percentage': percentage
+            'percentage': round(percentage, 2),
+            'time_taken': round((end_time - start_time).total_seconds()),
+            'datetime': end_time,
+            'number_questions': number_questions
         }
         return render(request, 'quiz_app/quiz_result.html', context)
         
     else:
-        
+        request.session['quiz_start_time'] = now().isoformat()
         context = {
             'quiz': quiz,
             'questions': questions,

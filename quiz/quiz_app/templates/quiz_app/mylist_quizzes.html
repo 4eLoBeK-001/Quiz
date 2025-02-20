@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="card-content">
-                    <p>Вопросов: {{ quiz.questions_t.count|default:"0" }}</p>
+                    <p>Вопросов: {{ quiz.questions.count|default:"0" }}</p>
                     <p>Сложность: {{ quiz.difficult }}</p>
                     <div class="card-actions-quiz">
                         <a href="{% url 'list_questions' quiz.id %}">Подробнее</a>

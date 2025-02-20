@@ -8,13 +8,13 @@
         </div>
 
         <div class="manage-panel col mbottom">
-            <p>Вопросов: {{ result.total_questions }}</p>
+            <p>Вопросов: {{ number_questions }}</p>
             <p>Правильных ответов: {{ score }}</p>
-            <p>Процент правильных ответов: {{  }}%</p>
-            <p>Время выполнения: {{ result.time_taken }} секунд</p>
-            <p>Дата выполнения: {{ result.completed_at }}</p>
+            <p>Процент правильных ответов: {{ percentage }}%</p>
+            <p>Время выполнения: {{ time_taken }} секунд</p>
+            <p>Дата выполнения: {{ datetime }}</p>
         </div>
-            <a href="{%url 'list_questions' quiz.id %}" class="center-btn center" style="font-size: 28px;">Вернуться на главную</a>
+            <a href="{%url 'list_questions' quiz.id %}" class="btn manage-btn center" style="font-size: 28px;">Вернуться на главную</a>
     
     </main>
 

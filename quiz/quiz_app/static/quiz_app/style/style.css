@@ -327,6 +327,12 @@ textarea {
     color: white;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+}
+
 
 
 .bottom {
@@ -428,6 +434,7 @@ input:checked + .slider:before {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    position: relative;
     transition: transform 0.2s, box-shadow 1.5s;
 }
   
@@ -456,7 +463,8 @@ input:checked + .slider:before {
     padding: 15px;
     font-size: 22px;
     color: #555;
-    max-height: 210px;
+    max-height: 200px;
+    height: 180px;
 }
   
 .card-conetnt p {
@@ -470,8 +478,9 @@ input:checked + .slider:before {
 }
 
 .card-actions {
-    text-align: right;
-    margin-top: 44px;
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
 }
 
 .single {
@@ -741,4 +750,13 @@ input:checked + .slider:before {
 .send-answers:hover span:after {
     opacity: 1;
     right: 0;
+}
+
+.col {
+    flex-direction: column;
+    align-items: start;
+}
+
+.mbottom {
+    margin-bottom: 20px;
 }

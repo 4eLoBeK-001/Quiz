@@ -6,10 +6,10 @@ from quiz_app.models import *
 admin.site.register(Quiz)
 
 
-admin.site.register(QuizResilt)
+admin.site.register(QuizResult)
 
 
-@admin.register(Quiestion)
+@admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('id', 'quiz', 'question_text', 'is_active', 'question_type')
 

@@ -1,7 +1,7 @@
 from django import forms
 
 from quiz_app.widgets import CustomSwitchCheckBox
-from quiz_app.models import Answer, Quiestion, Quiz
+from quiz_app.models import Answer, Question, Quiz
 
 
 class CreateQuizForm(forms.ModelForm):
@@ -23,7 +23,7 @@ class CreateQuizForm(forms.ModelForm):
 class CreateQuestionForm(forms.ModelForm):
 
     class Meta:
-        model = Quiestion
+        model = Question
         fields = ('question_text', 'question_type', 'is_active')
 
         labels = {

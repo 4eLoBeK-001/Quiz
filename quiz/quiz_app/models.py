@@ -27,7 +27,7 @@ class Quiz(models.Model):
         return self.name
 
 
-class Quiestion(models.Model):
+class Question(models.Model):
     SINGLE_CHOICE = 'single'
     MULTIPLE_CHOICE = 'multiple'
     TEXT_INPUT = 'input-text'
@@ -49,7 +49,7 @@ class Quiestion(models.Model):
 class Answer(models.Model):
     answer_text = models.CharField(max_length=120)
     is_correct = models.BooleanField(default=False)
-    question = models.ForeignKey(Quiestion, on_delete=models.CASCADE, related_name='answers')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
 
     class Meta:
         ordering = ['id']
@@ -58,7 +58,7 @@ class Answer(models.Model):
         return self.answer_text
 
 
-class QuizResilt(models.Model):
+class QuizResult(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='quiz_results')
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='results')
     correct_answers = models.PositiveIntegerField()
