@@ -20,7 +20,7 @@
                     <p>Сложность: {{ quiz.difficult }}</p>
                     <div class="card-actions-quiz">
                         <a href="{% url 'list_questions' quiz.id %}">Подробнее</a>
-                        <a href="">Начать викторину</a>
+                        <a href="{% url 'take_quiz' quiz.id %}">Начать викторину</a>
                         <a href="{% url 'delete_quiz' quiz.id %}" onclick="">Удалить</a>
                     </div>
                 </div>

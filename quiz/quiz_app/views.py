@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.timezone import now
 
-from quiz_app.models import Answer, Question, Quiz
+from quiz_app.models import Answer, Question, Quiz, QuizResult
 from quiz_app.forms import AddAnswerForm, CreateQuestionForm, CreateQuizForm
 
 # Create your views here.
@@ -14,7 +14,7 @@ def home(request):
     return render(request, 'quiz_app/home.html')
 
 
-@login_required
+
 def create_quiz(request):
     if request.method == 'POST':
         form = CreateQuizForm(request.POST)
@@ -155,6 +155,7 @@ def take_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     questions = Question.objects.filter(quiz=quiz)
     number_questions = questions.count()
+    user=request.user
 
     if request.method == 'POST':
         if request.POST:
@@ -173,9 +174,7 @@ def take_quiz(request, quiz_id):
                 elif question.question_type == 'multiple':
                     correct_answers = question.answers.filter(is_correct=True)
                     selected_answers = request.POST.getlist(str(question.id))
-                    lst_correct_answers = []
-                    for correct_answer in range(correct_answers.count()):
-                        lst_correct_answers.append(str(correct_answers[correct_answer].id))
+                    lst_correct_answers = [str(answer.id) for answer in correct_answers]
 
                     if set(lst_correct_answers) == set(selected_answers):
                         score += 1
@@ -187,16 +186,17 @@ def take_quiz(request, quiz_id):
                         score += 1
 
             percentage = (score/ questions.count()) * 100 # Процент верных ответов
-        context = {
-            'quiz': quiz,
-            'questions': questions,
-            'score': score,
-            'percentage': round(percentage, 2),
-            'time_taken': round((end_time - start_time).total_seconds()),
-            'datetime': end_time,
-            'number_questions': number_questions
-        }
-        return render(request, 'quiz_app/quiz_result.html', context)
+        QuizResult.objects.create(
+            user=user,
+            quiz=quiz,
+            correct_answers=score,
+            total_questions=number_questions,
+            percentage=percentage,
+            time_taken=round((end_time - start_time).total_seconds(), 1),
+            completed_at=end_time,
+        )
+
+        return test_result(request, quiz, user)
         
     else:
         request.session['quiz_start_time'] = now().isoformat()
@@ -205,3 +205,11 @@ def take_quiz(request, quiz_id):
             'questions': questions,
         }
         return render(request, 'quiz_app/take_quiz.html', context)
+
+
+def test_result(request, quiz, user):
+    quiz_result = QuizResult.objects.filter(quiz=quiz, user=user).latest('completed_at')
+    context = {
+        'quiz_result': quiz_result
+    }
+    return render(request, 'quiz_app/quiz_result.html', context)

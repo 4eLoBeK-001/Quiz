@@ -4,16 +4,16 @@ from django.db import models
 # Create your models here.
 
 class Quiz(models.Model):
-    EASY = "Easy-Quiz"
-    MEDIUN = "Medium-Quiz"
-    HARD = "Hard-Quiz"
-    VERY_HARD = "Very-hard-Quiz"
+    EASY = 'Easy-Quiz'
+    MEDIUN = 'Medium-Quiz'
+    HARD = 'Hard-Quiz'
+    VERY_HARD = 'Very-hard-Quiz'
 
     QUIZ_DIFFICULT = [
-        (EASY, "Лёгкая"),
-        (MEDIUN, "Средняя"),
-        (HARD, "Тяжёлая"),
-        (VERY_HARD, "Очень сложная"),
+        (EASY, 'Лёгкая'),
+        (MEDIUN, 'Средняя'),
+        (HARD, 'Тяжёлая'),
+        (VERY_HARD, 'Очень сложная'),
     ]
 
     name = models.CharField(max_length=200)
@@ -61,10 +61,10 @@ class Answer(models.Model):
 class QuizResult(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='quiz_results')
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='results')
-    correct_answers = models.PositiveIntegerField()
-    total_questions = models.PositiveIntegerField()
-    percentage = models.FloatField(help_text="Процент правильных ответов")
-    time_taken = models.FloatField(help_text="Время выполнения в секундах")
+    correct_answers = models.PositiveIntegerField(help_text='Верных ответов')
+    total_questions = models.PositiveIntegerField(help_text='Количество вопросов')
+    percentage = models.FloatField(help_text='Процент правильных ответов')
+    time_taken = models.FloatField(help_text='Время выполнения в секундах')
     completed_at = models.DateTimeField()
     
     def __str__(self):
