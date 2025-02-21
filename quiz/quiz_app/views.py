@@ -95,13 +95,10 @@ def change_question(request, quiz_id, question_id):
     return render(request, 'quiz_app/create_question.html', context)
 
 
-
-
-
-
 def delete_question(request, question_id, quiz_id):
     Question.objects.filter(id=question_id, quiz_id=quiz_id).delete()
     return redirect(request.META.get('HTTP_REFERER'))
+
 
 def detail_question(request, quiz_id, question_id):
     question = get_object_or_404(Question, id=question_id)

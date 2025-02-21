@@ -21,7 +21,7 @@
                     <div class="card-actions-quiz">
                         <a href="{% url 'list_questions' quiz.id %}">Подробнее</a>
                         <a href="{% url 'take_quiz' quiz.id %}">Начать викторину</a>
-                        <a href="{% url 'delete_quiz' quiz.id %}" onclick="">Удалить</a>
+                        <a href="{% url 'delete_quiz' quiz.id %}" onclick="confirmDelete(this); return false;">Удалить</a>
                     </div>
                 </div>
 
@@ -30,5 +30,5 @@
 
         </div>
     </main>
-    <script src="{% static 'quiz/script/quiz.js' %}"></script>
+    <script src="{% static 'quiz_app/script/quiz.js' %}"></script>
 {% endblock content %}

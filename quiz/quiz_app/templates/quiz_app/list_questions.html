@@ -64,7 +64,7 @@
                     <div class="card-actions card-actions-single">
                         <a href="{% url 'change_question' question.quiz.id question.id %}">Изменить</a>
                         <a href="{% url 'detail_question' question.quiz.id question.id %}">Подробнее</a>
-                        <a href="{% url 'delete_question' question.quiz.id question.id %}" onclick="">Удалить</a>
+                        <a href="{% url 'delete_question' question.quiz.id question.id %}" onclick="confirmDelete(this); return false;">Удалить</a>
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                     <div class="card-actions card-actions-input">
                         <a href="{% url 'change_question' question.quiz.id question.id %}">Изменить</a>
                         <a href="{% url 'detail_question' question.quiz.id question.id %}">Подробнее</a>
-                        <a href="{% url 'delete_question' question.quiz.id question.id %}" onclick="">Удалить</a>
+                        <a href="{% url 'delete_question' question.quiz.id question.id %}" onclick="confirmDelete(this); return false;">Удалить</a>
                     </div>
                 </div>
                 {% endif %}
