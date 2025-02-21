@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.timezone import now
 
+from quiz_app.statistics import update_statistics_on_test_completion, update_statistics_on_test_creation
 from quiz_app.models import Answer, Question, Quiz, QuizResult
 from quiz_app.forms import AddAnswerForm, CreateQuestionForm, CreateQuizForm
+
 
 # Create your views here.
 
@@ -19,8 +21,10 @@ def create_quiz(request):
     if request.method == 'POST':
         form = CreateQuizForm(request.POST)
         if form.is_valid():
+            user = request.user
             quiz = form.save(commit=False)
-            quiz.author = request.user
+            quiz.author = user
+            update_statistics_on_test_creation(request, quiz, user)
             quiz.save()
             return redirect(reverse('home'))
     else:
@@ -199,6 +203,7 @@ def take_quiz(request, quiz_id):
         }
         if not user.is_anonymous:
             QuizResult.objects.create(**result)
+            update_statistics_on_test_completion(request, quiz, user)
             return test_result(request, quiz, user)
         else:
             result = {'quiz_result': result}
