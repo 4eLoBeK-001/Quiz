@@ -19,3 +19,12 @@ for (elem of questions){
     }
 
 }
+
+
+function hideMessage(button) {
+    const div = button.closest('div');
+    div.classList.add('hidden');
+    setTimeout( () => {
+        div.style.display = 'none';
+    }, 700);
+}

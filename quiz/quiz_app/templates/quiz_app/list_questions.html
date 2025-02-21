@@ -35,7 +35,7 @@
         {% if messages %}
         <div class="container-messages">
             <ul class="messages">
-                <span class="close-button" onclick="">&times;</span>
+                <span class="close-button" onclick="hideMessage(this)">&times;</span>
                 {% for message in messages %}
                     <li class="{{ message.tags }}">{{ message }}</li>
                 {% endfor %}

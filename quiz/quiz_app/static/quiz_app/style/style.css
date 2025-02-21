@@ -760,3 +760,69 @@ input:checked + .slider:before {
 .mbottom {
     margin-bottom: 20px;
 }
+
+.container-messages {
+    background: linear-gradient(135deg, #ffb5b5 0%, #ff5f5f 100%); /* Градиентный фон */
+    border: 2px solid #ff5f5f;
+    border-radius: 10px;
+    text-align: center;
+    width: 350px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+
+    /* Для плавного скрытия */
+    transition: opacity 0.7s ease;
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+
+.messages {
+    list-style: none;
+    font-size: 22px;
+    padding: 0;
+    margin: 0;
+}
+
+.messages li {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.messages li:hover {
+    transform: scale(1.02);
+}
+
+.messages li.success {
+    border-left: 5px solid #28a745;
+}
+
+.messages li.error {
+    border-left: 5px solid #dc3545;
+}
+
+.messages li.warning {
+    border-left: 5px solid #ffc107;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    font-size: 24px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #c7bdff;
+}

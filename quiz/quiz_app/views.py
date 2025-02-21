@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.timezone import now
@@ -163,60 +164,65 @@ def take_quiz(request, quiz_id):
     number_questions = questions.count()
     user=request.user
 
-    if request.method == 'POST':
-        score = 0
-        start_time_str = request.session.get('quiz_start_time')
-        start_time = datetime.fromisoformat(start_time_str)
-        end_time = now()
+    if number_questions > 0:
+        if request.method == 'POST':
+            score = 0
+            start_time_str = request.session.get('quiz_start_time')
+            start_time = datetime.fromisoformat(start_time_str)
+            end_time = now()
 
-        for question in questions:
-            if question.question_type == 'single':
-                correct_answer = question.answers.get(is_correct=True)
-                selected_answer = request.POST.get(str(correct_answer.question_id))
-                if str(correct_answer.id) == selected_answer:
-                    score += 1
+            for question in questions:
+                if question.question_type == 'single':
+                    correct_answer = question.answers.get(is_correct=True)
+                    selected_answer = request.POST.get(str(correct_answer.question_id))
+                    if str(correct_answer.id) == selected_answer:
+                        score += 1
 
-            elif question.question_type == 'multiple':
-                correct_answers = question.answers.filter(is_correct=True)
-                selected_answers = request.POST.getlist(str(question.id))
-                lst_correct_answers = [str(answer.id) for answer in correct_answers]
+                elif question.question_type == 'multiple':
+                    correct_answers = question.answers.filter(is_correct=True)
+                    selected_answers = request.POST.getlist(str(question.id))
+                    lst_correct_answers = [str(answer.id) for answer in correct_answers]
 
-                if set(lst_correct_answers) == set(selected_answers):
-                    score += 1
+                    if set(lst_correct_answers) == set(selected_answers):
+                        score += 1
 
-            elif question.question_type == 'input-text':
-                correct_answer = question.answers.get(is_correct=True)
-                filled_field = request.POST.get(str(correct_answer.question_id))
-                if correct_answer.answer_text == filled_field:
-                    score += 1
+                elif question.question_type == 'input-text':
+                    correct_answer = question.answers.get(is_correct=True)
+                    filled_field = request.POST.get(str(correct_answer.question_id))
+                    if correct_answer.answer_text == filled_field:
+                        score += 1
 
-        percentage = (score/ questions.count()) * 100 # Процент верных ответов
+            percentage = (score/ questions.count()) * 100 # Процент верных ответов
 
-        result = {
-            'user': user,
-            'quiz': quiz,
-            'correct_answers': score,
-            'total_questions':number_questions,
-            'percentage': round(percentage, 2),
-            'time_taken': round((end_time - start_time).total_seconds(), 1),
-            'completed_at': end_time,
-        }
-        if not user.is_anonymous:
-            QuizResult.objects.create(**result)
-            update_statistics_on_test_completion(request, quiz, user)
-            return test_result(request, quiz, user)
-        else:
-            result = {'quiz_result': result}
-            return render(request, 'quiz_app/quiz_result.html', result)
+            result = {
+                'user': user,
+                'quiz': quiz,
+                'correct_answers': score,
+                'total_questions':number_questions,
+                'percentage': round(percentage, 2),
+                'time_taken': round((end_time - start_time).total_seconds(), 1),
+                'completed_at': end_time,
+            }
+            if not user.is_anonymous:
+                QuizResult.objects.create(**result)
+                update_statistics_on_test_completion(request, quiz, user)
+                return test_result(request, quiz, user)
+            else:
+                result = {'quiz_result': result}
+                return render(request, 'quiz_app/quiz_result.html', result)
 
         
+        else:
+            request.session['quiz_start_time'] = now().isoformat()
+            context = {
+                'quiz': quiz,
+                'questions': questions,
+            }
+            return render(request, 'quiz_app/take_quiz.html', context)
+    
     else:
-        request.session['quiz_start_time'] = now().isoformat()
-        context = {
-            'quiz': quiz,
-            'questions': questions,
-        }
-        return render(request, 'quiz_app/take_quiz.html', context)
+        messages.warning(request, message='Вы не создали ни одного вопроса')
+        return redirect(reverse('list_questions', args=[quiz_id]))
 
 
 def test_result(request, quiz, user):
