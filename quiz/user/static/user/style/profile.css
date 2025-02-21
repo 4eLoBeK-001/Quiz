@@ -1,0 +1,63 @@
+.user {
+    padding: 10px;
+    border: 1px solid blue;
+    display: flex;
+    align-items: center; /* Выравнивание по центру по вертикали */
+}
+
+.avatar {
+    border: 1px solid green;
+    height: 300px; /* Высота аватара */
+    width: 300px; /* Ширина аватара */
+    background-color: lightgray; /* Для наглядности */
+    border-radius: 15%; /* Если хотите сделать аватар круглым */
+}
+
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+    padding: 10px; /* Отступы для контента */
+    height: 300px;
+    flex-grow: 1;
+}
+
+
+.username {
+    text-align: center;
+    border: 1px solid rgb(4, 255, 0);
+    height: 30%;
+}
+
+.characteristic { 
+    border: 1px solid rgb(0, 145, 255);
+    flex-grow: 1;
+}
+
+.tests-created {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+
+.total-created {
+    text-align: center;
+}
+
+.other-created { 
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid rgb(255, 0, 0);
+}
+
+.total-completed {
+    text-align: center;
+}
+
+.other-completed { 
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid rgb(255, 0, 0);
+}

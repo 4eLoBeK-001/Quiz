@@ -48,3 +48,11 @@ def register_user(request):
     }
 
     return render(request, 'user/register.html', context)
+
+
+def profile_user(request):
+    statistics = Statistics.objects.get(user=request.user)
+    context = {
+        'statistics': statistics
+    }
+    return render(request, 'user/profile.html', context)

@@ -14,7 +14,7 @@
             <p>Время выполнения: {{ quiz_result.time_taken }} секунд</p>
             <p>Дата выполнения: {{ quiz_result.completed_at }}</p>
         </div>
-            <a href="{%url 'list_questions' quiz_result.quiz.id %}" class="btn manage-btn center" style="font-size: 28px;">Вернуться на главную</a>
+            <a href="{% url 'list_questions' quiz_result.quiz.id %}" class="btn manage-btn center" style="font-size: 28px;">Вернуться на главную</a>
     
     </main>
 

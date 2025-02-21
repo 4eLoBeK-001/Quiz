@@ -72,7 +72,7 @@
 
                 <div class="card-conetnt {{ question.question_type }}">
                     <div class="inp-view">
-                        <h2>{{question.answers.first}}</h2>
+                        <h2>{{question.answers.first|default:""}}</h2>
                     </div>
                     <div class="card-actions card-actions-input">
                         <a href="{% url 'change_question' question.quiz.id question.id %}">Изменить</a>

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'user/style/profile.css' %}">
+{% endblock link %}
+
+
+{% block content %}
+
+<main class="main-content">
+
+    <div class="user">
+
+        <div class="avatar"></div>
+        <div class="user-info">
+            <div class="username">
+                <h2>{% if user.firstname %}
+                    {{ user.firstname }}{{ user.lastname }},
+                    {% endif %}
+                    {{ user.username }}
+                </h2>
+            </div>
+            <div class="characteristic">
+                <div class="tests-created">
+
+                    <div class="total-created">
+                        <p>Создано тестов: {{ statistics.tests_created }}</p>
+                    </div>
+                    <div class="other-created">
+                        <p>Лёгких: {{ statistics.easy_tests_created }}</p>
+                        <p>Средних: {{ statistics.medium_tests_created }}</p>
+                        <p>Сложных: {{ statistics.hard_tests_created }}</p>
+                        <p>Очень сложных: {{ statistics.very_hard_tests_created }}</p>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="tests-completed">
+
+                    <div class="total-completed">
+                        <p>Пройдено тестов: {{ statistics.tests_completed }}</p>
+                    </div>
+                    <div class="other-completed">
+                        <p>Лёгких: {{ statistics.completed_easy_tests }}</p>
+                        <p>Средних: {{ statistics.completed_medium_tests }}</p>
+                        <p>Сложных: {{ statistics.completed_hard_tests }}</p>
+                        <p>Очень сложных: {{ statistics.completed_very_hard_tests }}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    
+</main>
+
+
+{% endblock content %}

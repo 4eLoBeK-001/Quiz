@@ -117,21 +117,23 @@ def detail_question(request, quiz_id, question_id):
                 for id_selected_answers in selected_answers:
                     Answer.objects.filter(id=id_selected_answers).update(is_correct=True)
             return redirect(request.META.get('HTTP_REFERER'))
+        
         if 'delete' in data_post:
             selected_answer = get_object_or_404(Answer, id=data_post.get('delete'))
             selected_answer.delete()
-            if not answers.filter(is_correct=True).exists(): # Если нет верных ответов
+            if not answers.filter(is_correct=True).exists():  # Если нет верных ответов
                 answer_first = answers.first()
                 answer_first.is_correct = True
                 answer_first.save()
             return redirect(request.META.get('HTTP_REFERER'))
             
-
         if 'add-answer' in data_post:
             form = AddAnswerForm(data_post)
             if form.is_valid():
                 form = form.save(commit=False)
                 form.question = question
+                if not question.answers.exists():  # Если это первый ответ
+                    form.is_correct=True
                 form.save()
                 return redirect(request.META.get('HTTP_REFERER'))
     else:
@@ -158,45 +160,50 @@ def take_quiz(request, quiz_id):
     user=request.user
 
     if request.method == 'POST':
-        if request.POST:
-            score = 0
-            start_time_str = request.session.get('quiz_start_time')
-            start_time = datetime.fromisoformat(start_time_str)
-            end_time = now()
+        score = 0
+        start_time_str = request.session.get('quiz_start_time')
+        start_time = datetime.fromisoformat(start_time_str)
+        end_time = now()
 
-            for question in questions:
-                if question.question_type == 'single':
-                    correct_answer = question.answers.get(is_correct=True)
-                    selected_answer = request.POST.get(str(correct_answer.question_id))
-                    if str(correct_answer.id) == selected_answer:
-                        score += 1
+        for question in questions:
+            if question.question_type == 'single':
+                correct_answer = question.answers.get(is_correct=True)
+                selected_answer = request.POST.get(str(correct_answer.question_id))
+                if str(correct_answer.id) == selected_answer:
+                    score += 1
 
-                elif question.question_type == 'multiple':
-                    correct_answers = question.answers.filter(is_correct=True)
-                    selected_answers = request.POST.getlist(str(question.id))
-                    lst_correct_answers = [str(answer.id) for answer in correct_answers]
+            elif question.question_type == 'multiple':
+                correct_answers = question.answers.filter(is_correct=True)
+                selected_answers = request.POST.getlist(str(question.id))
+                lst_correct_answers = [str(answer.id) for answer in correct_answers]
 
-                    if set(lst_correct_answers) == set(selected_answers):
-                        score += 1
+                if set(lst_correct_answers) == set(selected_answers):
+                    score += 1
 
-                elif question.question_type == 'input-text':
-                    correct_answer = question.answers.get(is_correct=True)
-                    filled_field = request.POST.get(str(correct_answer.question_id))
-                    if correct_answer.answer_text == filled_field:
-                        score += 1
+            elif question.question_type == 'input-text':
+                correct_answer = question.answers.get(is_correct=True)
+                filled_field = request.POST.get(str(correct_answer.question_id))
+                if correct_answer.answer_text == filled_field:
+                    score += 1
 
-            percentage = (score/ questions.count()) * 100 # Процент верных ответов
-        QuizResult.objects.create(
-            user=user,
-            quiz=quiz,
-            correct_answers=score,
-            total_questions=number_questions,
-            percentage=percentage,
-            time_taken=round((end_time - start_time).total_seconds(), 1),
-            completed_at=end_time,
-        )
+        percentage = (score/ questions.count()) * 100 # Процент верных ответов
 
-        return test_result(request, quiz, user)
+        result = {
+            'user': user,
+            'quiz': quiz,
+            'correct_answers': score,
+            'total_questions':number_questions,
+            'percentage': round(percentage, 2),
+            'time_taken': round((end_time - start_time).total_seconds(), 1),
+            'completed_at': end_time,
+        }
+        if not user.is_anonymous:
+            QuizResult.objects.create(**result)
+            return test_result(request, quiz, user)
+        else:
+            result = {'quiz_result': result}
+            return render(request, 'quiz_app/quiz_result.html', result)
+
         
     else:
         request.session['quiz_start_time'] = now().isoformat()
