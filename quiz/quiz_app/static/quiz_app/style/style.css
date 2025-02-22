@@ -204,7 +204,7 @@ textarea {
     gap: 20px;
     margin: 0 auto;
     max-width: 1200px;
-    padding: 10px 15px 150px 15px;
+    /* padding: 10px 15px 150px 15px; */
     grid-template-columns: repeat(1, 1fr);
 }
 
@@ -825,4 +825,145 @@ input:checked + .slider:before {
 
 .close-button:hover {
     color: #c7bdff;
+}
+
+
+.sort-panel, .pageview-panel {
+    display: flex;
+}
+
+.sort-panel{
+    flex-basis: 33%;
+    align-items: center;
+}
+
+.sort-panel p{
+    margin: 0 10px;
+    
+}
+
+.sort-panel select {
+    margin-left: 10px;
+    font-size: 22px;
+    appearance: listbox;
+    width: auto;
+}
+
+
+.pageview-panel {
+    align-items: center;
+}
+
+
+.select-paginate-by {
+    flex-basis: 50%;
+}
+
+.paginate-by {
+    background-color: #ffffff;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+.paginate-by a{
+    text-decoration: none;
+    color: #1d1d1d;
+}
+
+/* КВИЗЫ */
+
+.container-quiz{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 10px 15px 150px 15px;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+
+.global-card-conetnt {
+    padding: 15px;
+    font-size: 22px;
+    color: #555;
+    max-height: 210px;
+    display: flex;
+    flex-flow: column wrap;
+    position: relative;
+}
+  
+.global-card-conetnt p {
+    margin: 5px 0;
+}
+
+.end-p {
+    position: absolute;
+
+    right: 15px;
+}
+  
+.global-card-conetnt input{
+    padding: 25px;
+    font-size: 26px;
+    color: #555;
+}
+
+
+/* Контейнер для действий в карточке */
+.global-card-actions-quiz{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.global-card-actions-quiz a{
+    color: #4CAF50;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.container-pages {
+    position: absolute;
+    background-color: #efefef;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    bottom: 0;
+}
+
+
+.pages{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.page {
+    margin: 20px 15px;
+    background-color: #d8e6ff;
+    width: 55px;
+    height: 45px;
+    font-size: 26px;
+    text-align: center;
+    align-content: center;
+    border-radius: 10px;
+}
+
+.page:hover{
+    background-color: #2374ff;
+    cursor: pointer;
+}
+
+.page:hover a{
+    color: #ffffff;
+}
+
+.page a{
+    font-weight: bold;
+    text-decoration: none;
+    color: #0f27c5;
 }

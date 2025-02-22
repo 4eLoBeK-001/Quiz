@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <main class="main-content">
+
+        <div class="question-title">
+            <h1>Викторины от других игроков</h1>
+        </div>
+
+        <div class="manage-panel">
+            <form id="sortForm" action="" method="post">
+            {% csrf_token %}
+                <div class="sort-panel">
+                    <p for="sort">Сортировать:</p>
+                    
+                    <select id="sort" name="sort" onchange="">
+                        <option value="random">Случайно</option>
+                        <option value="newest">Самые новые</option>
+                        <option value="most_questions">Больше всего вопросов</option>
+                        <option value="least_questions">Меньше всего вопросов</option>
+                    </select>
+
+                </div>
+            </form>
+
+
+            <div class="pageview-panel">
+                <p class="select-paginate-by">Страница по:</p>
+                <p class="paginate-by"><a href="?page={{ request.GET.page }}&paginate_by={{10}}">10</a></p>
+                <p class="paginate-by"><a href="?page={{ request.GET.page }}&paginate_by={{25}}">25</a></p>
+                <p class="paginate-by"><a href="?page={{ request.GET.page }}&paginate_by={{50}}">50</a></p>
+            </div>
+        </div>
+
+        <div class="container-quiz">
+
+            {% for quiz in quizzes %}
+            <div class="card {{ quiz.get_difficult_display }}">
+                <div class="card-head">
+                    <a href=""><img src="" class="info-pic"></a>
+                    <a href="">{{ quiz }}</a>
+                </div>
+                <div class="global-card-conetnt">
+                    <p>Вопросов: {{ quiz.active_questions_count }}</p>
+                    <p>Сложность: {{ quiz.difficult }}</p>
+                    <p class="end-p">Автор: {{ quiz.author }}</p>
+                    <div class="global-card-actions-quiz">
+                        <a href="{% url 'take_quiz' quiz.id %}">Начать викторину</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+        <nav class="container-pages">
+            <ul class="pages">
+                {% for p in quizzes.paginator.page_range %}
+                <li class="page">
+                    <a href="?page={{p}}&paginate_by={{ request.GET.paginate_by }}">{{ p }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+    </main>
+
+{% endblock content %}

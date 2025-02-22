@@ -2,15 +2,15 @@
     padding: 10px;
     border: 1px solid blue;
     display: flex;
-    align-items: center; /* Выравнивание по центру по вертикали */
+    align-items: center;
 }
 
 .avatar {
     border: 1px solid green;
-    height: 300px; /* Высота аватара */
-    width: 300px; /* Ширина аватара */
-    background-color: lightgray; /* Для наглядности */
-    border-radius: 15%; /* Если хотите сделать аватар круглым */
+    height: 300px;
+    width: 300px;
+    background-color: lightgray;
+    border-radius: 15%;
 }
 
 
@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
     border: 1px solid red;
-    padding: 10px; /* Отступы для контента */
+    padding: 10px 0 10px 10px;
     height: 300px;
     flex-grow: 1;
 }

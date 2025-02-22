@@ -38,3 +38,7 @@ function confirmDelete(link) {
         return false;
     }
 }
+
+function changeActivity() {
+    document.getElementById('isActiveForm').submit();
+}

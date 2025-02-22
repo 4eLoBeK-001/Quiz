@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.timezone import now
+from django.core.paginator import Paginator
 
 from quiz_app.statistics import update_statistics_on_test_completion, update_statistics_on_test_creation
 from quiz_app.models import Answer, Question, Quiz, QuizResult
@@ -55,6 +56,13 @@ def delete_quiz(request, quiz_id):
 def list_questions(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     questions = Question.objects.filter(quiz=quiz)
+
+    if 'is_show' in request.POST:
+        quiz.is_show = not quiz.is_show
+        quiz.save()
+    else:
+        quiz.is_show = not quiz.is_show
+        quiz.save()
 
     context = {
         'quiz': quiz,
@@ -228,3 +236,18 @@ def test_result(request, quiz, user):
         'quiz_result': quiz_result
     }
     return render(request, 'quiz_app/quiz_result.html', context)
+
+
+def list_quizzes(request):
+    quizzes = Quiz.objects.all()
+
+    per_page = request.GET.get('paginate_by', 10)
+    page_number = request.GET.get('page')
+
+    paginator = Paginator(quizzes, per_page)
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'quizzes': page_obj
+    }
+    return render(request, 'quiz_app/list_quizzes.html', context)
