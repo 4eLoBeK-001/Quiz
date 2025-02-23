@@ -19,4 +19,6 @@ urlpatterns = [
     path('quiz/<int:quiz_id>/result/', views.test_result, name='test_result'),
 
     path('quiz/list/', views.list_quizzes, name='list_quizzes'),
+    path('quiz/<int:quiz_id>/global_statistics/', views.global_statistics, name='global_statistics'),
+    path('quiz/list/<int:user_id>/<str:username>', views.user_quizzes, name='user_quizzes'),
 ]

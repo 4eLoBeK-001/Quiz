@@ -2,6 +2,7 @@ from datetime import datetime
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count, Avg, Q
 from django.urls import reverse
 from django.utils.timezone import now
 from django.core.paginator import Paginator
@@ -57,12 +58,13 @@ def list_questions(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     questions = Question.objects.filter(quiz=quiz)
 
-    if 'is_show' in request.POST:
-        quiz.is_show = not quiz.is_show
-        quiz.save()
-    else:
-        quiz.is_show = not quiz.is_show
-        quiz.save()
+    if request.method == 'POST':
+        if 'is_show' in request.POST:
+            quiz.is_show = not quiz.is_show
+            quiz.save()
+        else:
+            quiz.is_show = not quiz.is_show
+            quiz.save()
 
     context = {
         'quiz': quiz,
@@ -165,7 +167,7 @@ def delete_answer(request, answer_id):
 
 def take_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
-    questions = Question.objects.filter(quiz=quiz)
+    questions = Question.objects.filter(quiz=quiz, is_active=True)
     number_questions = questions.count()
     user=request.user
 
@@ -239,7 +241,9 @@ def test_result(request, quiz, user):
 
 
 def list_quizzes(request):
-    quizzes = Quiz.objects.all()
+    quizzes = Quiz.objects.annotate(
+        active_questions_count=Count('questions', filter=Q(questions__is_active=True))
+        ).filter(is_show=True, active_questions_count__gte=1)
 
     per_page = request.GET.get('paginate_by', 10)
     page_number = request.GET.get('page')
@@ -251,3 +255,27 @@ def list_quizzes(request):
         'quizzes': page_obj
     }
     return render(request, 'quiz_app/list_quizzes.html', context)
+
+
+def global_statistics(request, quiz_id):
+    quiz = get_object_or_404(Quiz.objects
+        .annotate(
+            total_count=Count('results'),
+            avg_score=Avg('results__percentage'),
+            avg_time=Avg('results__time_taken')
+        ), id=quiz_id
+    )
+
+    questions_count = quiz.questions.filter(is_active=True)
+    last_test = quiz.results.latest('completed_at')
+    context = {
+        'quiz': quiz,
+        'questions_count': questions_count.count(),
+        'created_at': quiz.created_at,
+        'last_test': last_test.completed_at.date() if last_test else 'Нет прохождений'
+    }
+    return render(request, 'quiz_app/global_statistics.html', context)
+
+
+def user_quizzes(request, user_id, username):
+    ...

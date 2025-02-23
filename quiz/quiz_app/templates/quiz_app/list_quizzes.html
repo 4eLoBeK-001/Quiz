@@ -39,7 +39,7 @@
             <div class="card {{ quiz.get_difficult_display }}">
                 <div class="card-head">
                     <a href=""><img src="" class="info-pic"></a>
-                    <a href="">{{ quiz }}</a>
+                    <a href="{% url 'global_statistics' quiz.id %}">{{ quiz }}</a>
                 </div>
                 <div class="global-card-conetnt">
                     <p>Вопросов: {{ quiz.active_questions_count }}</p>

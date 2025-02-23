@@ -26,6 +26,9 @@ class Quiz(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['created_at']
+
 
 class Question(models.Model):
     SINGLE_CHOICE = 'single'
@@ -45,6 +48,7 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_text
+
 
 class Answer(models.Model):
     answer_text = models.CharField(max_length=120)

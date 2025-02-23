@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <main class="main-content">
+        <div class="question-title">
+            <h1>{{ quiz }}</h1>
+        </div>
+        <div class="global-container">
+
+            <div class="vremennii">
+
+                <div class="quiz-description">
+                    <div class="quiz-description head">
+                        <h3>Описание</h3>
+                    </div>
+                    <div class="quiz-description content">
+                        <p>{{ quiz.description }}</p>
+                    </div>
+                </div>
+
+                <div class="info-quiz">
+                    <p>Создатель: <a href="">{{ quiz.author }}</a></p>
+                    <p>Сложность: {{ quiz.difficult }}</p>
+                    <p>Вопросов: {{ questions_count }}</p>
+                    <a href="" class="center-btn center">Пройти викторину</a>
+                </div>
+                    
+            </div>
+
+            <div class="global-statistics">
+                <h2>Прошли раз: {{ quiz.total_count|default:'0' }}</h2>
+                <h2>Средний процент: {{ quiz.avg_score|floatformat:2|default:'Нет прохождений' }}{% if quiz.total_count%}%{%endif%}</h2>
+                <h2>Среднее время прохождения: {{ quiz.avg_time|floatformat:2|default:'Нет прохождений' }}{% if quiz.total_count%} s.{%endif%}</h2>
+            </div>
+
+            <div class="created-at">
+           <!-- <p>Создан: {{ quiz.created_at|date:"d F Y г." }}</p> Одно и тоже -->
+                <p>Создан: {{ created_at|date:"d F Y г." }}</p> 
+                <p>Последнее прохождение: {{ last_test }}</p>
+            </div>
+            
+        </div>
+
+    </main>
+
+{% endblock content %}
