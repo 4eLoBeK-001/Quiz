@@ -4,7 +4,8 @@
 {% block content %}
     <main class="main-content">
 
-        <div class="question-title">
+        <div class="title">
+            <a href="{% url 'home' %}"><img src="{% static 'quiz_app/images/go_back.png' %}" class="back-pic"></a>
             <h1>Викторины от других игроков</h1>
         </div>
 
@@ -38,7 +39,7 @@
             {% for quiz in quizzes %}
             <div class="card {{ quiz.get_difficult_display }}">
                 <div class="card-head">
-                    <a href=""><img src="" class="info-pic"></a>
+                    <a href="{% url 'global_statistics' quiz.id %}"><img src="{% static 'quiz_app/images/info.png' %}" class="info-pic"></a>
                     <a href="{% url 'global_statistics' quiz.id %}">{{ quiz }}</a>
                 </div>
                 <div class="global-card-conetnt">

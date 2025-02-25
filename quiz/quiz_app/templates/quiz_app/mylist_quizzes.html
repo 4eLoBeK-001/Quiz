@@ -4,15 +4,23 @@
 {% block content %}
 
     <!-- Основной контент -->
-    <main class="main-content pd20">
-        <h1 class="title">Список моих викторин</h1>
+    <main class="main-content">
+        <div class="title">
+            <h1>Список моих викторин</h1>
+        </div>
+        
         <div class="container-quiz">
 
             {% for quiz in quizzes %}
             <div class="card {{ quiz.get_difficult_display }}">
-
                 <div class="card-head">
-                    <a href="">{{ quiz }}</a>
+                    {% if quiz.is_show %}
+                    <img src="{% static 'quiz_app/images/open_eye.png' %}" class="eye-pic">
+                    {% else %}
+                    <img src="{% static 'quiz_app/images/closed_eye.png' %}" class="eye-pic">
+                    {% endif %}
+                    <a href="{% url 'list_questions' quiz.id %}">{{ quiz }}</a>
+                    <a href="{% url 'global_statistics' quiz.id %}"><img src="{% static 'quiz_app/images/info.png' %}" class="info-pic"></a>
                 </div>
 
                 <div class="card-content">

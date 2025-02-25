@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block content %}
 
     <main class="main-content">
-        <div class="question-title">
+        <div class="title">
+            <a onclick="window.history.back()"><img src="{% static 'quiz_app/images/go_back.png' %}" class="back-pic"></a>
             <h1>{{ quiz }}</h1>
         </div>
         <div class="global-container">

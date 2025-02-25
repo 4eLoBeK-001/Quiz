@@ -1,8 +1,8 @@
 {% extends 'base_auth.html' %}
 
 {% block content %}
-<a class="btn home-btn" href="">Вернуться на главную</a>
-<a class="btn back-btn">Вернуться назад</a>
+<a class="btn home-btn" href="{% url 'home' %}">Вернуться на главную</a>
+<a class="btn back-btn" onclick="window.history.back();">Вернуться назад</a>
 <div class="login-container">
     <h1>Авторизация</h1>
 
