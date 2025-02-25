@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Avg, Q
 from django.urls import reverse
@@ -128,6 +129,9 @@ def detail_question(request, quiz_id, question_id):
                 answers.update(is_correct=False)
                 for id_selected_answers in selected_answers:
                     Answer.objects.filter(id=id_selected_answers).update(is_correct=True)
+            elif question.question_type == 'input-text':
+                save_write_input = request.POST['save-write-input']
+                answers.update(answer_text=save_write_input)
             return redirect(request.META.get('HTTP_REFERER'))
         
         if 'delete' in data_post:
@@ -226,8 +230,7 @@ def take_quiz(request, quiz_id):
                 'questions': questions,
             }
             return render(request, 'quiz_app/take_quiz.html', context)
-    
-    else:
+    elif number_questions == 0:
         messages.warning(request, message='Вы не создали ни одного вопроса')
         return redirect(reverse('list_questions', args=[quiz_id]))
 
@@ -244,6 +247,20 @@ def list_quizzes(request):
     quizzes = Quiz.objects.annotate(
         active_questions_count=Count('questions', filter=Q(questions__is_active=True))
         ).filter(is_show=True, active_questions_count__gte=1)
+    
+
+    sorting_method = request.POST.get('sort', 'random')
+
+    if request.method == 'POST':
+        if sorting_method == 'random':
+            quizzes = quizzes.order_by('?') # Работает только для PostgreSQL
+        elif sorting_method == 'newest':
+            quizzes = quizzes.order_by('created_at')
+        elif sorting_method == 'most_questions':
+            quizzes = quizzes.order_by('-active_questions_count')
+        elif sorting_method == 'least_questions':
+            quizzes = quizzes.order_by('active_questions_count')
+
 
     per_page = request.GET.get('paginate_by', 10)
     page_number = request.GET.get('page')
@@ -257,6 +274,7 @@ def list_quizzes(request):
     return render(request, 'quiz_app/list_quizzes.html', context)
 
 
+
 def global_statistics(request, quiz_id):
     quiz = get_object_or_404(Quiz.objects
         .annotate(
@@ -268,6 +286,7 @@ def global_statistics(request, quiz_id):
 
     questions_count = quiz.questions.filter(is_active=True)
     last_test = quiz.results.latest('completed_at')
+
     context = {
         'quiz': quiz,
         'questions_count': questions_count.count(),
@@ -278,4 +297,13 @@ def global_statistics(request, quiz_id):
 
 
 def user_quizzes(request, user_id, username):
-    ...
+    author = get_object_or_404(get_user_model(), id=user_id, username=username)
+    quizzes = Quiz.objects.annotate(
+        active_questions_count=Count('questions', filter=Q(questions__is_active=True))
+        ).filter(author=author, is_show=True, active_questions_count__gte=1)
+
+    context = {
+        'username': author.username,
+        'quizzes': quizzes
+    }
+    return render(request, 'quiz_app/list_user_quizzes.html', context)

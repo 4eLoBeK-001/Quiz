@@ -21,10 +21,10 @@
                 </div>
 
                 <div class="info-quiz">
-                    <p>Создатель: <a href="">{{ quiz.author }}</a></p>
+                    <p>Создатель: <a href="{% url 'user_quizzes' quiz.author_id quiz.author.username %}">{{ quiz.author }}</a></p>
                     <p>Сложность: {{ quiz.difficult }}</p>
                     <p>Вопросов: {{ questions_count }}</p>
-                    <a href="" class="center-btn center">Пройти викторину</a>
+                    <a href="{% url 'take_quiz' quiz.id %}" class="center-btn center">Пройти викторину</a>
                 </div>
                     
             </div>

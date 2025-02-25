@@ -420,6 +420,7 @@ input:checked + .slider:before {
     max-width: 1200px;
     padding: 10px 15px;
     grid-template-columns: repeat(2, 1fr);
+    transition: all 2s ease-in-out;
 }
   
 @media screen and (max-width: 1200px) {

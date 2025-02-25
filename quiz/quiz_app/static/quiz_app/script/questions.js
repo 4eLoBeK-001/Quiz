@@ -20,13 +20,22 @@ for (elem of questions){
 
 }
 
-
 function hideMessage(button) {
     const div = button.closest('div');
+    const div2 = document.getElementsByClassName('container-question')[0]
     div.classList.add('hidden');
+
+    setTimeout( () => {
+        div.style.opacity = '0';
+    }, 700);
+
     setTimeout( () => {
         div.style.display = 'none';
-    }, 700);
+        div2.style.transition = 'none';
+        div2.style.transform = 'translate(0,0)';
+    }, 2700);
+    
+    div2.style.transform = 'translate(0,-186px)';
 }
 
 function confirmDelete(link) {

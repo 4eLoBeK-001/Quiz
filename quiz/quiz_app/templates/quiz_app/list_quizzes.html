@@ -14,11 +14,11 @@
                 <div class="sort-panel">
                     <p for="sort">Сортировать:</p>
                     
-                    <select id="sort" name="sort" onchange="">
-                        <option value="random">Случайно</option>
-                        <option value="newest">Самые новые</option>
-                        <option value="most_questions">Больше всего вопросов</option>
-                        <option value="least_questions">Меньше всего вопросов</option>
+                    <select id="sort" name="sort" onchange="document.getElementById('sortForm').submit();">
+                        <option value="random" {% if request.POST.sort == 'random' %} selected {% endif %}>Случайно</option>
+                        <option value="newest"{% if request.POST.sort == 'newest' %} selected {% endif %}>Самые новые</option>
+                        <option value="most_questions"{% if request.POST.sort == 'most_questions' %} selected {% endif %}>Больше всего вопросов</option>
+                        <option value="least_questions"{% if request.POST.sort == 'least_questions' %} selected {% endif %}>Меньше всего вопросов</option>
                     </select>
 
                 </div>
