@@ -10,6 +10,7 @@
                 <img src="{% static 'quiz_app/images/go_back.png' %}" class="back-pic" >
             </a>
             <h1>Викторины пользователя: {{ username }}</h1>
+            <img src="{{ user.photo.url }}" class="avatar-pic">
         </div>
 
         <div class="container-quiz">

@@ -137,6 +137,8 @@ def detail_question(request, quiz_id, question_id):
         if 'delete' in data_post:
             selected_answer = get_object_or_404(Answer, id=data_post.get('delete'))
             selected_answer.delete()
+            if not answers.exists():
+                return redirect(request.META.get('HTTP_REFERER'))
             if not answers.filter(is_correct=True).exists():  # Если нет верных ответов
                 answer_first = answers.first()
                 answer_first.is_correct = True
@@ -297,13 +299,14 @@ def global_statistics(request, quiz_id):
 
 
 def user_quizzes(request, user_id, username):
-    author = get_object_or_404(get_user_model(), id=user_id, username=username)
+    user = get_object_or_404(get_user_model(), id=user_id, username=username)
     quizzes = Quiz.objects.annotate(
         active_questions_count=Count('questions', filter=Q(questions__is_active=True))
-        ).filter(author=author, is_show=True, active_questions_count__gte=1)
+        ).filter(author=user, is_show=True, active_questions_count__gte=1)
 
     context = {
-        'username': author.username,
+        'user': user,
+        'username': user.username,
         'quizzes': quizzes
     }
     return render(request, 'quiz_app/list_user_quizzes.html', context)

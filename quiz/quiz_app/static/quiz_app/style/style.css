@@ -1040,6 +1040,14 @@ input:checked + .slider:before {
     cursor: pointer;
 }
 
+.avatar-pic {
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    border-radius: 50px;
+    right: 15px;
+    top: 18%;
+}
 
 .eye-pic {
     position: absolute;
