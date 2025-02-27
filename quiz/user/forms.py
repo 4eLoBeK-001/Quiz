@@ -29,3 +29,11 @@ class RegisterUserForm(forms.ModelForm):
             raise forms.ValidationError('Пароли не совпадают!')
         else:
             return cd['password1']
+
+
+class UploadImageForm(forms.Form):
+    
+    photo = forms.ImageField(label='')
+
+
+

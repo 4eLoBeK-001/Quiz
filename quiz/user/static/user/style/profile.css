@@ -6,13 +6,39 @@
 }
 
 .avatar {
-    border: 1px solid green;
+    position: relative;
     height: 300px;
     width: 300px;
-    background-color: lightgray;
-    border-radius: 15%;
+    border-radius: 50%;
 }
 
+.content-avatar { 
+    height: 300px;
+    border-radius: 50%;
+    width: 300px;
+}
+
+.avatar:hover { 
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.avatar:hover .phot { 
+    display: block;
+}
+
+.phot {
+    position: absolute;
+    display: none;
+    color: #ffffff;
+    font-size: 20px;
+    background-color: #686868;
+    border-radius: 5px;
+    padding: 5px;
+    transform: translate(-50%, -50%);
+    top: 46%;
+    left: 50%;
+}
 
 .user-info {
     display: flex;

@@ -13,7 +13,29 @@
 
     <div class="user">
 
-        <div class="avatar"></div>
+        <form action="" method="post" enctype="multipart/form-data" id="upload_form">
+            {% csrf_token %}
+            
+            <div class="form-error">{{ form.non_field_errors }}</div>
+
+            {% for f in form %}
+            <div class="form-group" style="display: none;">
+                {{ f }}
+                <!-- <div class="form_error">{{ f.errors }} </div> -->
+            </div>
+            {% endfor %}
+            <button type="submit" style="display: none;">Отправить</button>
+        </form>
+
+        <div class="avatar">
+            <p class="phot">Выбрать фото</p>
+            {% if user.photo %}
+            <img src="{{ user.photo.url }}" alt="" class="content-avatar">
+            {% else %}
+            <img src="{{ default_url }}user/profile_pictures/default_picture/avatar.png" alt="" class="content-avatar">
+            {% endif %}
+        </div>
+
         <div class="user-info">
             <div class="username">
                 <h2>{% if user.firstname %}
@@ -57,5 +79,6 @@
     
 </main>
 
+<script src="{% static 'user/scripts/profile.js' %}"></script>
 
 {% endblock content %}
