@@ -6,8 +6,6 @@ from quiz_app.models import Answer, Question, Quiz
 
 class CreateQuizForm(forms.ModelForm):
 
-    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}))
-
     class Meta:
         model = Quiz
         fields = ('name', 'description', 'difficult', 'is_show')
@@ -17,6 +15,11 @@ class CreateQuizForm(forms.ModelForm):
             'description': 'Описание',
             'difficult': 'Сложность',
             'is_show': 'Сделать общедоступным?'
+        }
+
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 5}),
+            'is_show': forms.CheckboxInput(attrs={'class': 'scale15'})
         }
 
 
@@ -51,7 +54,7 @@ class AddAnswerForm(forms.ModelForm):
 
         widgets = {
             'answer_text': forms.TextInput(attrs={'class': 'form-field'}),
-            'is_correct': forms.CheckboxInput(attrs={'class': 'form-field-checkbox scale'})
+            'is_correct': forms.CheckboxInput(attrs={'class': 'form-field-checkbox scale23'})
         }
 
     # def clean_answer_text(self):

@@ -48,6 +48,9 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_text
+    
+    class Meta:
+        ordering = ['id']
 
 
 class Answer(models.Model):

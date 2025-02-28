@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.core.paginator import Paginator
 
+from quiz import settings
 from quiz_app.statistics import update_statistics_on_test_completion, update_statistics_on_test_creation
 from quiz_app.models import Answer, Question, Quiz, QuizResult
 from quiz_app.forms import AddAnswerForm, CreateQuestionForm, CreateQuizForm
@@ -257,7 +258,7 @@ def list_quizzes(request):
         if sorting_method == 'random':
             quizzes = quizzes.order_by('?') # Работает только для PostgreSQL
         elif sorting_method == 'newest':
-            quizzes = quizzes.order_by('created_at')
+            quizzes = quizzes.order_by('-created_at')
         elif sorting_method == 'most_questions':
             quizzes = quizzes.order_by('-active_questions_count')
         elif sorting_method == 'least_questions':
@@ -287,13 +288,13 @@ def global_statistics(request, quiz_id):
     )
 
     questions_count = quiz.questions.filter(is_active=True)
-    last_test = quiz.results.latest('completed_at')
+    last_test = quiz.results.latest('completed_at').completed_at.date() if quiz.results.exists() else 'Нет прохождений'
 
     context = {
         'quiz': quiz,
         'questions_count': questions_count.count(),
         'created_at': quiz.created_at,
-        'last_test': last_test.completed_at.date() if last_test else 'Нет прохождений'
+        'last_test': last_test,
     }
     return render(request, 'quiz_app/global_statistics.html', context)
 
@@ -307,6 +308,7 @@ def user_quizzes(request, user_id, username):
     context = {
         'user': user,
         'username': user.username,
-        'quizzes': quizzes
+        'quizzes': quizzes,
+        'default_url': settings.MEDIA_URL
     }
     return render(request, 'quiz_app/list_user_quizzes.html', context)
