@@ -51,3 +51,18 @@ function confirmDelete(link) {
 function changeActivity() {
     document.getElementById('isActiveForm').submit();
 }
+
+function hideInactive(button) {
+    
+    const cards = document.querySelectorAll('.card');
+
+    for(card of cards){
+        const checkbox = card.querySelector('input');
+        // Если нажато то скрывает все неактивные вопросы
+        if (!button.checked && !checkbox.checked) { 
+            card.style.display = 'none';
+        } else{
+            card.style.display = 'inline';
+        }
+    }
+}

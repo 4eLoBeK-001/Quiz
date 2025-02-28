@@ -6,7 +6,7 @@
 
     <main class="main-content">
         <div class="answer-title">
-            <a href=""><img src="" class="back-pic"></a>
+            <a href="{% url 'list_questions' question.quiz_id %}"><img src="{% static 'quiz_app/images/go_back.png' %}" class="back-pic"></a>
             <h1 class="answer-title-text">{{ question_title }}</h1>
         </div>
         <div class="container-answer">

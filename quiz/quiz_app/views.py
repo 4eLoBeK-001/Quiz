@@ -41,7 +41,7 @@ def create_quiz(request):
 
 
 def view_quizzes(request):
-    quizzes = Quiz.objects.all()
+    quizzes = Quiz.objects.filter(author=request.user)
 
     context = {
         'quizzes': quizzes

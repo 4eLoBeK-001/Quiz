@@ -35,9 +35,13 @@
     background-color: #686868;
     border-radius: 5px;
     padding: 5px;
-    transform: translate(-50%, -50%);
+    transform: translate(-40%, -50%);
     top: 46%;
-    left: 50%;
+    left: 46%;
+}
+
+.phot:hover {
+    background-color: #545454;
 }
 
 .user-info {
