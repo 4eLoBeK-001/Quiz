@@ -58,6 +58,11 @@ body {
     margin: 0 10px;
     font-size: 28px;
     font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-left a:hover {
+    color: #ce2626;
 }
 
 
@@ -526,6 +531,7 @@ input:checked + .slider:before {
 }
 
 
+
 .mleft {
     margin-left: 20px;
 }
@@ -636,7 +642,6 @@ input:checked + .slider:before {
 .save-answer-btn, .save-input-answer-btn {
     text-align: center;
     transition: 0.5s;
-    font-size: 18px;
     background-size: 200% auto;
     color: white;
     box-shadow: 0 0 20px #eee;
@@ -646,9 +651,21 @@ input:checked + .slider:before {
     border-radius: 10px;
     background-image: linear-gradient(to right, #003CC5 0%, #0B63F6 51%, #003CC5 100%);
 }
+
   
 .save-answer-btn:hover, .save-input-answer-btn:hover {
     background-position: right center;
+}
+
+#author {
+    text-decoration: none;
+    font-weight: bold;
+    color: #ffffff;
+    transition: color 0.3s;
+}
+
+#author:hover{
+    color: #ff3a3a;
 }
 
 .answer #id_answer_text {
@@ -1146,3 +1163,71 @@ input:checked + .slider:before {
     text-align: center;
 }
 
+
+
+
+/* Основные стили для секции контактов */
+.contact-info {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.contact-info h2 {
+    font-size: 26px;
+    margin-top: 20px;
+    color: #555;
+}
+
+.contact-info p {
+    font-size: 18px;
+    color: #242424;
+}
+
+.contact-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+/* Стили для формы */
+.contacts-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 20px;    
+    outline: none;
+}
+
+.textarea {
+    resize: vertical;
+}
+
+.input:focus {
+    border-color: #007BFF;
+}

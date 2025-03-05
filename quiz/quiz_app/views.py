@@ -20,7 +20,11 @@ from quiz_app.forms import AddAnswerForm, CreateQuestionForm, CreateQuizForm
 def home(request):
     return render(request, 'quiz_app/home.html')
 
+def about(request):
+    return render(request, 'quiz_app/about.html')
 
+def contacts(request):
+    return render(request, 'quiz_app/contacts.html')
 
 def create_quiz(request):
     if request.method == 'POST':
@@ -31,7 +35,7 @@ def create_quiz(request):
             quiz.author = user
             update_statistics_on_test_creation(request, quiz, user)
             quiz.save()
-            return redirect(reverse('home'))
+            return redirect(reverse('list_questions', args=[quiz.id]))
     else:
         form = CreateQuizForm()
 

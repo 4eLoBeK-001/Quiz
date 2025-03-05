@@ -22,10 +22,10 @@
                 </div>
 
                 <div class="info-quiz">
-                    <p>Создатель: <a href="{% url 'user_quizzes' quiz.author_id quiz.author.username %}">{{ quiz.author }}</a></p>
+                    <p>Создатель: <a id="author" class="fs25" href="{% url 'user_quizzes' quiz.author_id quiz.author.username %}">{{ quiz.author }}</a></p>
                     <p>Сложность: {{ quiz.difficult }}</p>
                     <p>Вопросов: {{ questions_count }}</p>
-                    <a href="{% url 'take_quiz' quiz.id %}" class="center-btn center">Пройти викторину</a>
+                    <a href="{% url 'take_quiz' quiz.id %}" class="btn manage-btn fs25">Пройти викторину</a>
                 </div>
                     
             </div>
@@ -38,8 +38,8 @@
 
             <div class="created-at">
            <!-- <p>Создан: {{ quiz.created_at|date:"d F Y г." }}</p> -->
-                <p>Создан: {{ created_at|date:"d F Y г." }}</p> 
-                <p>Последнее прохождение: {{ last_test }}</p>
+                <p class="fs18">Создан: {{ created_at|date:"d F Y г." }}</p> 
+                <p class="fs18">Последнее прохождение: {{ last_test }}</p>
             </div>
 
             <div class="histories">
@@ -55,7 +55,7 @@
                 <button class="btn btn-submit" id="showAll">Показать все</button>
                 {% else %}
                 <div class="history ">
-                    <h1>Вы ещё не проходили этот тест</h1>
+                    <h1 style="text-align: center;">Вы ещё не проходили этот тест</h1>
                 </div>
                 {% endif %}
         </div>

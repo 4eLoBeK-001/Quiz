@@ -25,7 +25,7 @@
                     <p>{% if answer.is_correct %}<span class="mleft">(Правильный)</span>{% endif %}</p>
                 </div>
                 {% endfor %}
-                <button type="submit" class="save-answer-btn" name="save">Сохранить</button>
+                <button type="submit" class="save-answer-btn fs18" name="save">Сохранить</button>
 
             {% elif question.question_type == 'multiple' %}
 
@@ -40,7 +40,7 @@
                     <p>{%if answer.is_correct%}<span class="mleft">(Правильный)</span>{%endif%}</p>
                 </div>
                 {% endfor %}
-                <button type="submit" class="save-answer-btn" name="save">Сохранить</button>
+                <button type="submit" class="save-answer-btn fs18" name="save">Сохранить</button>
 
             {% else %}
 
@@ -61,7 +61,7 @@
 
                 {% endfor %}
 
-                <button type="submit" class="save-input-answer-btn" name="save" value="">Сохранить</button>
+                <button type="submit" class="save-input-answer-btn fs18" name="save" value="">Сохранить</button>
             {% endif %}
             </form>
 

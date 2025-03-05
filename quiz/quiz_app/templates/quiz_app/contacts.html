@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="main-content">
+    <section class="contact-info">
+        <h1>Связаться с нами</h1>
+        <p>Если у вас есть вопросы или вам нужна помощь, обращайтесь к нам. Мы всегда готовы помочь!</p>
+        
+        <h2>Наши контактные данные</h2>
+        <ul>
+            <li><strong>Email:</strong> grandinkv@gmail.com</li>
+            <li><strong>Телеграм:</strong>  адрес.me</li>
+        </ul>
+
+
+        <h2>Форма обратной связи</h2>
+        <form action="/send-message" method="POST" class="contacts-form">
+            <label class="label" for="name">Имя:</label>
+            <input class="input" type="text" id="name" name="name" required>
+
+            <label class="label" for="email">Email:</label>
+            <input class="input" type="email" id="email" name="email" required>
+
+            <label class="label" for="message">Сообщение:</label>
+            <textarea class="input textarea" id="message" name="message" rows="4" required></textarea>
+
+            <button class="btn save-answer-btn fs25" type="submit">Отправить</button>
+        </form>
+    </section>
+</main>
+{% endblock content %}

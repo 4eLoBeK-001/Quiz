@@ -4,6 +4,8 @@ from quiz_app import views
 
 urlpatterns = [
     path('home/', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('contacts/', views.contacts, name='contacts'),
 
     path('quiz/create/', views.create_quiz, name='create_quiz'),
     path('quiz/mylist/', views.view_quizzes, name='view_quizzes'),
