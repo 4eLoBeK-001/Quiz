@@ -37,13 +37,36 @@
             </div>
 
             <div class="created-at">
-           <!-- <p>Создан: {{ quiz.created_at|date:"d F Y г." }}</p> Одно и тоже -->
+           <!-- <p>Создан: {{ quiz.created_at|date:"d F Y г." }}</p> -->
                 <p>Создан: {{ created_at|date:"d F Y г." }}</p> 
                 <p>Последнее прохождение: {{ last_test }}</p>
             </div>
-            
+
+            <div class="histories">
+                <h1 class="history-title answer-title pd20">Прошлые прохождения</h1>
+                {% if histories %}
+                    {% for history in histories %}
+                    <div class="history {% if history.percentage > 74 %} great {% elif history.percentage > 50 %} good {% else %} bad {% endif %}">
+                        <p class="correct-answers">Верных ответов: {{ history.correct_answers }} из {{ history.total_questions }} | {{ history.percentage }}%</p>
+                        <p class="time-taken">Время прохождения: {{ history.time_taken }} сек.</p>
+                        <p class="completed-at">{{ history.completed_at }}</p>
+                    </div>
+                    {% endfor %}
+                <button class="btn btn-submit" id="showAll">Показать все</button>
+                {% else %}
+                <div class="history ">
+                    <h1>Вы ещё не проходили этот тест</h1>
+                </div>
+                {% endif %}
+        </div>
         </div>
 
     </main>
-
+    
 {% endblock content %}
+
+{% block script %}
+
+<script src="{% static 'quiz_app/script/statistics.js' %}"></script>
+
+{% endblock script %}

@@ -74,6 +74,9 @@ class QuizResult(models.Model):
     time_taken = models.FloatField(help_text='Время выполнения в секундах')
     completed_at = models.DateTimeField()
     
+    class Meta:
+        ordering = ['-completed_at']
+
     def __str__(self):
         return f'{self.user} выполнил {self.quiz.name} на ({self.percentage}%)'
     

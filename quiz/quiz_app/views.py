@@ -289,12 +289,17 @@ def global_statistics(request, quiz_id):
 
     questions_count = quiz.questions.filter(is_active=True)
     last_test = quiz.results.latest('completed_at').completed_at.date() if quiz.results.exists() else 'Нет прохождений'
+    
+    
+    histories = QuizResult.objects.filter(user=request.user, quiz_id=quiz_id)
+
 
     context = {
         'quiz': quiz,
         'questions_count': questions_count.count(),
         'created_at': quiz.created_at,
         'last_test': last_test,
+        'histories': histories
     }
     return render(request, 'quiz_app/global_statistics.html', context)
 
@@ -312,3 +317,5 @@ def user_quizzes(request, user_id, username):
         'default_url': settings.MEDIA_URL
     }
     return render(request, 'quiz_app/list_user_quizzes.html', context)
+
+

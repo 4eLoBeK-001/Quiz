@@ -535,7 +535,6 @@ input:checked + .slider:before {
     background-color: #af4c4c;
     color: aliceblue;
     margin: 0 0 20px 0;
-    padding: 10px;
     text-align: center;
     height: auto;
     border-radius: 10px;
@@ -1068,5 +1067,82 @@ input:checked + .slider:before {
     position: absolute;
     right: 15px;
     filter: brightness(9);  /* Яркость */
+}
+
+
+.btns a{
+    margin: 10px 0;
+}
+
+.histories {
+
+    background-color: #eaeaea;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.history-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    color: #f8f8f8;
+    margin-bottom: 20px;
+}
+
+
+.history {
+    border-radius: 5px;
+    padding: 20px;
+
+    margin: 0 20px;
+    margin-bottom: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.great {
+    background-color: #bbf1a9;
+    border: 1px solid #3b921e;
+}
+.good {
+    background-color: #fff25e;
+    border: 1px solid #ba9b2b;
+}
+.bad {
+    background-color: #f1a9a9;
+    border: 1px solid #921e1e;
+}
+.history:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.history p {
+    margin: 5px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.great .correct-answers {
+    font-weight: bold;
+    color: #007d04;
+}
+.good .correct-answers {
+    font-weight: bold;
+    color: #b98500;
+}
+.bad .correct-answers {
+    font-weight: bold;
+    color: #ba0000;
+}
+
+
+.time-taken {
+    color: #2196F3;
+    font-weight: bold;
+}
+
+.completed-at {
+    font-size: 14px;
+    text-align: center;
 }
 
