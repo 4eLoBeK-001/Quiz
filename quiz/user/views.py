@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
@@ -27,7 +28,7 @@ def login_user(request):
     }
     return render(request, 'user/login.html', context)
 
-
+@login_required()
 def logout_user(request):
     logout(request)
     return redirect(request.META.get('HTTP_REFERER'))
@@ -51,7 +52,7 @@ def register_user(request):
 
     return render(request, 'user/register.html', context)
 
-
+@login_required()
 def profile_user(request):
     statistics = Statistics.objects.get(user=request.user)
     user = request.user

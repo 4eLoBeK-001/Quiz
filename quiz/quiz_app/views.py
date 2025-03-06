@@ -26,6 +26,7 @@ def about(request):
 def contacts(request):
     return render(request, 'quiz_app/contacts.html')
 
+@login_required()
 def create_quiz(request):
     if request.method == 'POST':
         form = CreateQuizForm(request.POST)
@@ -44,7 +45,7 @@ def create_quiz(request):
     }
     return render(request, 'quiz_app/create_quiz.html', context)
 
-
+@login_required()
 def view_quizzes(request):
     quizzes = Quiz.objects.filter(author=request.user)
 
@@ -54,12 +55,13 @@ def view_quizzes(request):
     return render(request, 'quiz_app/mylist_quizzes.html', context)
 
 
+@login_required()
 def delete_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     quiz.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required()
 def list_questions(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     questions = Question.objects.filter(quiz=quiz)
@@ -78,7 +80,7 @@ def list_questions(request, quiz_id):
     }
     return render(request, 'quiz_app/list_questions.html', context)
 
-
+@login_required()
 def create_question(request, quiz_id):
     if request.method == 'POST':
         form = CreateQuestionForm(request.POST)
@@ -95,7 +97,7 @@ def create_question(request, quiz_id):
     }
     return render(request, 'quiz_app/create_question.html', context)
 
-
+@login_required()
 def change_question(request, quiz_id, question_id):
     question = get_object_or_404(Question, id=question_id)
     if request.method == 'POST':
@@ -110,12 +112,12 @@ def change_question(request, quiz_id, question_id):
     }
     return render(request, 'quiz_app/create_question.html', context)
 
-
+@login_required()
 def delete_question(request, question_id, quiz_id):
     Question.objects.filter(id=question_id, quiz_id=quiz_id).delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required()
 def detail_question(request, quiz_id, question_id):
     question = get_object_or_404(Question, id=question_id)
     answers = Answer.objects.filter(question=question)
@@ -169,7 +171,7 @@ def detail_question(request, quiz_id, question_id):
     }
     return render(request, 'quiz_app/detail_question.html', context)
 
-
+@login_required()
 def delete_answer(request, answer_id):
     answer = get_object_or_404(Answer, id=answer_id)
     answer.delete()
@@ -283,6 +285,7 @@ def list_quizzes(request):
 
 
 def global_statistics(request, quiz_id):
+    user = request.user
     quiz = get_object_or_404(Quiz.objects
         .annotate(
             total_count=Count('results'),
@@ -294,9 +297,10 @@ def global_statistics(request, quiz_id):
     questions_count = quiz.questions.filter(is_active=True)
     last_test = quiz.results.latest('completed_at').completed_at.date() if quiz.results.exists() else 'Нет прохождений'
     
-    
-    histories = QuizResult.objects.filter(user=request.user, quiz_id=quiz_id)
-
+    if not user.is_anonymous:
+        histories = QuizResult.objects.filter(user=request.user, quiz_id=quiz_id)
+    else:
+        histories = ''
 
     context = {
         'quiz': quiz,
