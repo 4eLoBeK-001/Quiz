@@ -9,12 +9,11 @@ from django.utils.timezone import now
 from django.core.paginator import Paginator
 
 from quiz import settings
+from quiz_app.decorators import user_is_quiz_creator
 from quiz_app.statistics import update_statistics_on_test_completion, update_statistics_on_test_creation
 from quiz_app.models import Answer, Question, Quiz, QuizResult
 from quiz_app.forms import AddAnswerForm, CreateQuestionForm, CreateQuizForm
 
-
-# Create your views here.
 
 
 def home(request):
@@ -56,12 +55,14 @@ def view_quizzes(request):
 
 
 @login_required()
+@user_is_quiz_creator
 def delete_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     quiz.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required()
+@user_is_quiz_creator
 def list_questions(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     questions = Question.objects.filter(quiz=quiz)
@@ -81,6 +82,7 @@ def list_questions(request, quiz_id):
     return render(request, 'quiz_app/list_questions.html', context)
 
 @login_required()
+@user_is_quiz_creator
 def create_question(request, quiz_id):
     if request.method == 'POST':
         form = CreateQuestionForm(request.POST)
@@ -98,6 +100,7 @@ def create_question(request, quiz_id):
     return render(request, 'quiz_app/create_question.html', context)
 
 @login_required()
+@user_is_quiz_creator
 def change_question(request, quiz_id, question_id):
     question = get_object_or_404(Question, id=question_id)
     if request.method == 'POST':
@@ -113,11 +116,13 @@ def change_question(request, quiz_id, question_id):
     return render(request, 'quiz_app/create_question.html', context)
 
 @login_required()
+@user_is_quiz_creator
 def delete_question(request, question_id, quiz_id):
     Question.objects.filter(id=question_id, quiz_id=quiz_id).delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required()
+@user_is_quiz_creator
 def detail_question(request, quiz_id, question_id):
     question = get_object_or_404(Question, id=question_id)
     answers = Answer.objects.filter(question=question)
@@ -172,6 +177,7 @@ def detail_question(request, quiz_id, question_id):
     return render(request, 'quiz_app/detail_question.html', context)
 
 @login_required()
+@user_is_quiz_creator
 def delete_answer(request, answer_id):
     answer = get_object_or_404(Answer, id=answer_id)
     answer.delete()
