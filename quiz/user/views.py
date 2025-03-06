@@ -12,7 +12,7 @@ from user.models import Statistics, User
 
 def login_user(request):
     if request.method == 'POST':
-        form = LoginUserForm(request.POST)
+        form = LoginUserForm(request, data=request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(request, username=cd['username'], password=cd['password'])

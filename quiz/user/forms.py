@@ -1,16 +1,33 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
 
 
-class LoginUserForm(forms.Form):
+class LoginUserForm(AuthenticationForm):
 
-    username = forms.CharField(label='Логин', max_length=150, widget=forms.TextInput(attrs={'class': 'form-input'}))
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(
+        label='Логин', 
+        max_length=150, 
+        widget=forms.TextInput(attrs={'class': 'form-input'})
+    )
+
+    password = forms.CharField(
+        label='Пароль', 
+        widget=forms.PasswordInput(attrs={'class': 'form-input'})
+    )
+
 
 
 class RegisterUserForm(forms.ModelForm):
-    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    password1 = forms.CharField(
+        label='Пароль', 
+        widget=forms.PasswordInput(attrs={'class': 'form-input'})
+    )
+
+    password2 = forms.CharField(
+        label='Повторите пароль', 
+        widget=forms.PasswordInput(attrs={'class': 'form-input'})
+    )
 
     class Meta:
         model = get_user_model()
@@ -29,6 +46,13 @@ class RegisterUserForm(forms.ModelForm):
             raise forms.ValidationError('Пароли не совпадают!')
         else:
             return cd['password1']
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email:
+            if get_user_model().objects.filter(email=email).exists():
+                raise forms.ValidationError('Пользователь с такой почтой уже существует')
+        return email
 
 
 class UploadImageForm(forms.Form):
