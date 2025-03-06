@@ -3,6 +3,15 @@ from django.db import models
 
 # Create your models here.
 
+class PublishedQuizManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_show=True)
+
+class DraftQuizManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_show=False)
+
+
 class Quiz(models.Model):
     EASY = 'Easy-Quiz'
     MEDIUN = 'Medium-Quiz'
@@ -28,6 +37,11 @@ class Quiz(models.Model):
 
     class Meta:
         ordering = ['created_at']
+    
+    objects = models.Manager()
+    published = PublishedQuizManager()
+    draft = DraftQuizManager()  
+
 
 
 class Question(models.Model):
