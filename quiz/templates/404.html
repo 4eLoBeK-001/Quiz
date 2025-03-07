@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <h1 id="status-code">404</h1>
+    <h2 id="info-code">Страница не найдена</h2>
+    <p>К сожалению, запрашиваемая вами страница не существует.</p>
+    <div class="nav-links">
+        <p><a href="{% url 'home' %}">Вернуться на главную</a></p>
+        <p><a href="{% url 'about' %}">Узнать больше о сайте</a></p>
+    </div>
+</div>
+{% endblock content %}

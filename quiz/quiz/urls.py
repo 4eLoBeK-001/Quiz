@@ -23,7 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('quiz_app.urls')),
     path('account/', include('user.urls')),
+
 ]
+
+handler404 = 'quiz.views.page_not_found_view'
+handler403 = 'quiz.views.page_forbidden_view'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

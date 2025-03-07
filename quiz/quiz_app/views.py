@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.core.paginator import Paginator
 
+from http import HTTPStatus
+
 from quiz import settings
 from quiz_app.decorators import user_is_quiz_creator
 from quiz_app.statistics import update_statistics_on_test_completion, update_statistics_on_test_creation

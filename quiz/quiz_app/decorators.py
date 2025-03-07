@@ -1,5 +1,6 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseForbidden
+from quiz.views import page_forbidden_view
 from quiz_app.models import Quiz
 
 
@@ -8,6 +9,9 @@ def user_is_quiz_creator(view_func):
     def wrapper(request, quiz_id, *args, **kwargs):
         quiz = get_object_or_404(Quiz, id=quiz_id)
         if request.user != quiz.author:
-            return HttpResponseForbidden('Нет права')
+            details = {
+                'datails': 'Вы не можете как-либо изменять(редактировать) тесты созданные не вами'
+            }
+            return render(request, '403.html', context=details, status=403)
         return view_func(request, quiz_id, *args, **kwargs)
     return wrapper
