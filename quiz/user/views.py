@@ -2,10 +2,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.db.models import Count, Max
 
 from quiz import settings
+from quiz_app.models import Quiz
 from user.forms import LoginUserForm, RegisterUserForm, UploadImageForm
-from user.models import Statistics, User
+from user.models import Statistics
 
 
 # Create your views here.
@@ -54,8 +56,12 @@ def register_user(request):
 
 @login_required()
 def profile_user(request):
-    statistics = Statistics.objects.get(user=request.user)
     user = request.user
+    
+    statistics = Statistics.objects.get(user=user)
+    popular = Quiz.published.annotate(result_count=Count('results')).filter(author=user)
+    most_popular_quiz = popular.order_by('-result_count').first()
+
     if request.method == 'POST':
         form = UploadImageForm(request.POST, request.FILES)
         if form.is_valid():
@@ -67,6 +73,7 @@ def profile_user(request):
     context = {
         'statistics': statistics,
         'form': form,
+        'most_popular_quiz': most_popular_quiz,
         'default_url': settings.MEDIA_URL,
     }
     return render(request, 'user/profile.html', context)

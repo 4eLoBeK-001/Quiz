@@ -19,7 +19,7 @@
         {% endfor %}
         <button class="btn submit-btn" type="submit">Войти</button>
         <p class="register-link">Нет аккаунта?
-            <a href="">Создайте здесь</a>
+            <a href="{% url 'account:register_user' %}">Создайте здесь</a>
         </p>
     </form>
 </div>

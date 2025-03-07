@@ -121,3 +121,18 @@ h1 {
     margin-bottom: 5px;
     color: #555;
 }
+
+.errorlist {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f8d7da;
+    border: 1px solid #ff6b79;
+    border-radius: 5px;
+    padding: 15px;
+    color: #721c24;
+    font-family: Arial, sans-serif;
+}
+.errorlist li {
+    margin: 0;
+}

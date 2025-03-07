@@ -61,7 +61,7 @@
                         <p>{{answer}}</p>
                     {% endfor %}
                     </div>
-                    <div class="card-actions card-actions-single">
+                    <div class="card-actions bot5 card-actions-single">
                         <a href="{% url 'change_question' question.quiz.id question.id %}">Изменить</a>
                         <a href="{% url 'detail_question' question.quiz.id question.id %}">Подробнее</a>
                         <a href="{% url 'delete_question' question.quiz.id question.id %}" onclick="confirmDelete(this); return false;">Удалить</a>

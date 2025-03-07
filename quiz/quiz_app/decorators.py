@@ -1,6 +1,4 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseForbidden
-from quiz.views import page_forbidden_view
 from quiz_app.models import Quiz
 
 
