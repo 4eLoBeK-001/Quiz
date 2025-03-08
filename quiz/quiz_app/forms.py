@@ -62,3 +62,21 @@ class AddAnswerForm(forms.ModelForm):
     #     if len(answer_text) > 120:
     #         raise forms.ValidationError('Длинна превышает 120 символов')
     #     return answer_text
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(
+        max_length=100, 
+        label='Имя:', 
+        widget=forms.TextInput(attrs={'class': 'input'})
+    )
+
+    email = forms.EmailField(
+        label='Email:', 
+        widget=forms.EmailInput(attrs={'class': 'input'})
+    )
+
+    message = forms.CharField(
+        label='Сообщение:',
+        widget=forms.Textarea(attrs={'class': 'input textarea', 'rows': '4'})
+    )

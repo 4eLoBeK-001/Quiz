@@ -146,3 +146,12 @@ AUTH_USER_MODEL = 'user.User'
 
 MEDIA_ROOT = BASE_DIR / 'user' / 'media'
 MEDIA_URL = '/media/'
+
+
+# Настройки для отправки почты
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # smtp.gmail.com для Gmail
+EMAIL_PORT = 465
+EMAIL_USE_SSL=True
+EMAIL_HOST_USER = 'your_emailf@gmail.com'  # Не забудьте изменить
+EMAIL_HOST_PASSWORD = 'your_password'  # Не забудьте изменить

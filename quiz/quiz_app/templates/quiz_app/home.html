@@ -3,6 +3,18 @@
 
 {% block content %}
 
+{% if messages %}
+<div class="container-messages success-topic">
+    <ul class="messages">
+        <span class="close-button" onclick="">&times;</span>
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+
 <main class="home-main-content">
     <div class="button-row">
         <a href="{% url 'create_quiz' %}" class="btn big-btn">Создать свою викторину</a>
@@ -11,5 +23,5 @@
     </div>
 </main>
 
-<script src=""></script>
+
 {% endblock content %}

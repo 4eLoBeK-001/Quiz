@@ -782,9 +782,17 @@ input:checked + .slider:before {
     margin-bottom: 20px;
 }
 
-.container-messages {
+.warning-topic {
     background: linear-gradient(135deg, #ffb5b5 0%, #ff5f5f 100%); /* Градиентный фон */
     border: 2px solid #ff5f5f;
+}
+
+.success-topic {
+    background: linear-gradient(135deg, #b1feb0 0%, #58dc70 100%); /* Градиентный фон */
+    border: 2px solid #5eff7b;
+}
+
+.container-messages {
     border-radius: 10px;
     text-align: center;
     width: 350px;

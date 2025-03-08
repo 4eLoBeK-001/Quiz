@@ -1,3 +1,5 @@
+import smtplib
+
 from datetime import datetime
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
@@ -7,14 +9,13 @@ from django.db.models import Count, Avg, Q
 from django.urls import reverse
 from django.utils.timezone import now
 from django.core.paginator import Paginator
-
-from http import HTTPStatus
+from django.core.mail import send_mail
 
 from quiz import settings
 from quiz_app.decorators import user_is_quiz_creator
 from quiz_app.statistics import update_statistics_on_test_completion, update_statistics_on_test_creation
 from quiz_app.models import Answer, Question, Quiz, QuizResult
-from quiz_app.forms import AddAnswerForm, CreateQuestionForm, CreateQuizForm
+from quiz_app.forms import AddAnswerForm, ContactForm, CreateQuestionForm, CreateQuizForm
 
 
 
@@ -25,7 +26,45 @@ def about(request):
     return render(request, 'quiz_app/about.html')
 
 def contacts(request):
-    return render(request, 'quiz_app/contacts.html')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+
+            full_message = (
+                    f'''Имя: {name} \n
+                    Email: {email} \n
+                    Сообщение: {message}''')
+            try:
+                send_mail(
+                    subject='Новое сообщение с сайта',
+                    message=full_message,
+                    from_email=email,
+                    recipient_list=['Recipient\'s mail'],
+                    fail_silently=False,
+                )
+                messages.success(request, message='Сообщение успешно отправлено')
+                return redirect(reverse('home'))
+
+            except smtplib.SMTPAuthenticationError as e:
+                request.session['email_error_context'] = {
+                    'name': name,
+                    'email': email,
+                    'message': message,
+                    'error': str(e),
+                    'detail': 'Скорее всего вы не настроили правильно переменные "EMAIL_HOST_USER" и "EMAIL_HOST_PASSWORD", не забудьте также про переменную "recipient_list"'
+                }
+                raise Exception('Скорее всего вы не настроили правильно переменные "EMAIL_HOST_USER" и "EMAIL_HOST_PASSWORD", не забудьте также про переменную "recipient_list"')
+
+    else:
+        form = ContactForm()
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'quiz_app/contacts.html', context)
 
 @login_required()
 def create_quiz(request):

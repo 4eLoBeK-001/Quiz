@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ошибка</title>
+</head>
+<body>
+    <h1>500</h1>
+    <h2>Ошибка сервера</h2>
+    
+    {% if error_context %}
+        <h2>Дополнительная информация:</h2>
+        <p><strong>Имя:</strong> {{ error_context.name }}</p>
+        <p><strong>Email:</strong> {{ error_context.email }}</p>
+        <p><strong>Сообщение:</strong> {{ error_context.message }}</p>
+        <p><strong>Ошибка:</strong> {{ error_context.error }}</p>
+        <p><strong>Дополнительная информация:</strong> {{ error_context.detail }}</p>
+    {% endif %}
+</body>
+</html>

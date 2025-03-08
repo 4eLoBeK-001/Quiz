@@ -12,20 +12,25 @@
             <li><strong>Телеграм:</strong>  адрес.me</li>
         </ul>
 
-
         <h2>Форма обратной связи</h2>
-        <form action="/send-message" method="POST" class="contacts-form">
-            <label class="label" for="name">Имя:</label>
-            <input class="input" type="text" id="name" name="name" required>
 
-            <label class="label" for="email">Email:</label>
-            <input class="input" type="email" id="email" name="email" required>
+        <form action="" method="POST" enctype="multipart/form-data" class="contacts-form">
+            {% csrf_token %}
 
-            <label class="label" for="message">Сообщение:</label>
-            <textarea class="input textarea" id="message" name="message" rows="4" required></textarea>
+            <div class="form-error">{{ form.non_field_errors }}</div>
 
+            {% for field in form %}
+        
+            <label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            <div class="form_error">{{ field.errors }} </div>
+
+            {% endfor %}
             <button class="btn save-answer-btn fs25" type="submit">Отправить</button>
+
         </form>
+
+
     </section>
 </main>
 {% endblock content %}

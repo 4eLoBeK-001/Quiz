@@ -28,6 +28,7 @@ urlpatterns = [
 
 handler404 = 'quiz.views.page_not_found_view'
 handler403 = 'quiz.views.page_forbidden_view'
+handler500 = 'quiz.views.page_server_error_view'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
