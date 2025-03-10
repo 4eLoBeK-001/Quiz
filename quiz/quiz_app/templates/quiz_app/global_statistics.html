@@ -4,7 +4,7 @@
 {% block content %}
 
     <main class="main-content">
-        <div class="title">
+        <div class="title pd10">
             <a onclick="window.history.back()"><img src="{% static 'quiz_app/images/go_back.png' %}" class="back-pic"></a>
             <h1>{{ quiz }}</h1>
         </div>
@@ -42,11 +42,11 @@
                 <p class="fs18">Последнее прохождение: {{ last_test }}</p>
             </div>
 
-            <div class="histories">
-                <h1 class="history-title answer-title pd20">Прошлые прохождения</h1>
+            <div class="lower-cards">
+                <h1 class="lower-card-title answer-title pd20">Прошлые прохождения</h1>
                 {% if histories %}
                     {% for history in histories %}
-                    <div class="history {% if history.percentage > 74 %} great {% elif history.percentage > 50 %} good {% else %} bad {% endif %}">
+                    <div class="lower-card {% if history.percentage > 74 %} great {% elif history.percentage > 50 %} good {% else %} bad {% endif %}">
                         <p class="correct-answers">Верных ответов: {{ history.correct_answers }} из {{ history.total_questions }} | {{ history.percentage }}%</p>
                         <p class="time-taken">Время прохождения: {{ history.time_taken }} сек.</p>
                         <p class="completed-at">{{ history.completed_at }}</p>

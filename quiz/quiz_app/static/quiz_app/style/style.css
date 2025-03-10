@@ -39,7 +39,6 @@ body {
     background-color: rgb(162, 75, 243);
     position: relative;
     color: white;
-    padding: 10px;
     text-align: center;
     height: auto;
     border-radius: 10px 10px 0 0;
@@ -128,7 +127,7 @@ body {
     min-height: 85vh;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -1112,14 +1111,14 @@ input:checked + .slider:before {
     margin: 10px 0;
 }
 
-.histories {
+.lower-cards {
     background-color: #eaeaea;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
 
-.history-title {
+.lower-card-title {
     font-size: 28px;
     font-weight: bold;
     text-align: center;
@@ -1128,7 +1127,7 @@ input:checked + .slider:before {
 }
 
 
-.history {
+.lower-card {
     border-radius: 5px;
     padding: 20px;
 

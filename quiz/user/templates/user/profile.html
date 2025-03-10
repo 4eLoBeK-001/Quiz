@@ -37,7 +37,7 @@
         </div>
 
         <div class="user-info">
-            <div class="username">
+            <div class="title">
                 <h2>{% if user.firstname %}
                     {{ user.firstname }}{{ user.lastname }},
                     {% endif %}
@@ -47,10 +47,10 @@
             <div class="characteristic">
                 <div class="tests-created">
 
-                    <div class="total-created">
-                        <p>Создано тестов: {{ statistics.tests_created }}</p>
+                    <div class="total fs18">
+                        <p><b>Создано тестов: {{ statistics.tests_created }}</b></p>
                     </div>
-                    <div class="other-created">
+                    <div class="other fs18">
                         <p>Лёгких: {{ statistics.easy_tests_created }}</p>
                         <p>Средних: {{ statistics.medium_tests_created }}</p>
                         <p>Сложных: {{ statistics.hard_tests_created }}</p>
@@ -58,13 +58,12 @@
                     </div>
 
                 </div>
-                <hr>
                 <div class="tests-completed">
 
-                    <div class="total-completed">
-                        <p>Пройдено тестов: {{ statistics.tests_completed }}</p>
+                    <div class="total fs18">
+                        <p><b>Пройдено тестов: {{ statistics.tests_completed }}</b></p>
                     </div>
-                    <div class="other-completed">
+                    <div class="other fs18">
                         <p>Лёгких: {{ statistics.completed_easy_tests }}</p>
                         <p>Средних: {{ statistics.completed_medium_tests }}</p>
                         <p>Сложных: {{ statistics.completed_hard_tests }}</p>
@@ -75,8 +74,8 @@
             </div>
         </div>
 
-        <div class="histories mt80">
-            <h1 class="history-title answer-title pd20">Самый популярный тест</h1>
+        <div class="lower-cards mt80">
+            <h1 class="lower-card-title answer-title pd20">Самый популярный тест</h1>
             <div class="container-quiz" style="margin: 0 20px 20px 20px;">
                 <div class="card">
                     <div class="card-head">
