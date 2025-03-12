@@ -1,4 +1,4 @@
-const histories = document.querySelectorAll('.history');
+const histories = document.querySelectorAll('.lower-card');
 const historiesArray = Array.from(histories);
 const btn = document.getElementById('showAll');
 

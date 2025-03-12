@@ -1,8 +1,8 @@
 .user {
     padding: 10px;
-    border: 1px solid blue;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .avatar {
@@ -47,47 +47,33 @@
 .user-info {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
-    padding: 10px 0 10px 10px;
-    height: 300px;
+    margin-left: 10px;
     flex-grow: 1;
+    background-color: #f2f2f2;
+    border-radius: 50px 50px 0 0;
+
 }
 
-
-.username {
-    text-align: center;
-    border: 1px solid rgb(4, 255, 0);
-    height: 30%;
-}
 
 .characteristic { 
-    border: 1px solid rgb(0, 145, 255);
+    border: 1px solid #003CC5;
     flex-grow: 1;
 }
 
 .tests-created {
     display: flex;
     flex-direction: column;
-    border: 1px solid rgb(0, 0, 0);
 }
 
 
-.total-created {
+.total {
     text-align: center;
+    color: white;
+    background-image: linear-gradient(to right, #003CC5 0%, #045bf2 51%, #003CC5 100%);
+    padding: 0.1px;
 }
 
-.other-created { 
+.other { 
     display: flex;
     justify-content: space-evenly;
-    border: 1px solid rgb(255, 0, 0);
-}
-
-.total-completed {
-    text-align: center;
-}
-
-.other-completed { 
-    display: flex;
-    justify-content: space-evenly;
-    border: 1px solid rgb(255, 0, 0);
 }
