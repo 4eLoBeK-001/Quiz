@@ -94,7 +94,7 @@ body {
 }
 
 .big-btn {
-    flex: 1; /* Заставляет кнопки занимать равное пространство */
+    flex: 1;
     padding: 80px 40px;
     font-size: 32px;
     border-radius: 8px;
@@ -262,7 +262,7 @@ textarea {
 }
 
 .card-actions-quiz a {
-    display: inline-block; /* Ссылки в строку */
+    display: inline-block;
     color: #4CAF50;
     font-weight: bold;
     text-decoration: none;
@@ -340,23 +340,23 @@ textarea {
     margin-top: 35px;
 }
 
-
+/* Switch */
 .switch {
     right: 15px;
     display: inline-block;
-    top: 50%; /* Для центрирования по вертикали */
+    top: 50%;
     transform: translateY(-50%);
     width: 80px;
     height: 34px;
     cursor: pointer;
 }
   
-/* Hide default HTML checkbox */
+
 .switch input {
     display:none;
 }
   
-/* The slider */
+/* Slider */
 .slider {
     position: absolute;
     top: 0;
@@ -782,12 +782,12 @@ input:checked + .slider:before {
 }
 
 .warning-topic {
-    background: linear-gradient(135deg, #ffb5b5 0%, #ff5f5f 100%); /* Градиентный фон */
+    background: linear-gradient(135deg, #ffb5b5 0%, #ff5f5f 100%);
     border: 2px solid #ff5f5f;
 }
 
 .success-topic {
-    background: linear-gradient(135deg, #b1feb0 0%, #58dc70 100%); /* Градиентный фон */
+    background: linear-gradient(135deg, #b1feb0 0%, #58dc70 100%);
     border: 2px solid #5eff7b;
 }
 
@@ -800,7 +800,6 @@ input:checked + .slider:before {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     position: relative;
 
-    /* Для плавного скрытия */
     transition: opacity 0.7s ease;
     opacity: 1;
 }
@@ -1184,8 +1183,6 @@ input:checked + .slider:before {
 }
 
 
-
-
 /* Основные стили для секции контактов */
 .contact-info {
     max-width: 800px;
@@ -1252,7 +1249,7 @@ input:checked + .slider:before {
     border-color: #007BFF;
 }
 
-/* Для статус кодов 400-ых */
+/* Для статус кодов */
 .container {
     text-align: center;
     font-family: Arial, sans-serif;
@@ -1280,7 +1277,7 @@ input:checked + .slider:before {
 }
 .container a {
     text-decoration: none;
-    color: #3498db; /* Цвет ссылки */
+    color: #3498db;
     font-weight: bold;
 }
 .container a:hover {

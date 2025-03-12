@@ -1,6 +1,5 @@
 .user {
     padding: 10px;
-    /* border: 1px solid blue; */
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -70,7 +69,6 @@
 .total {
     text-align: center;
     color: white;
-    /* background-color: #2700c1; */
     background-image: linear-gradient(to right, #003CC5 0%, #045bf2 51%, #003CC5 100%);
     padding: 0.1px;
 }

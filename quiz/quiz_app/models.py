@@ -40,7 +40,7 @@ class Quiz(models.Model):
     
     objects = models.Manager()
     published = PublishedQuizManager()
-    draft = DraftQuizManager()  
+    draft = DraftQuizManager()
 
 
 

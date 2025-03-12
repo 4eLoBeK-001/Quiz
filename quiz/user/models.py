@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    photo = models.ImageField(upload_to='user/profile_pictures/%Y/%m/%d/', verbose_name='avatar')
+    photo = models.ImageField(upload_to='user/profile_pictures/%Y/%m/%d/', verbose_name='avatar', blank=True, null=True)
 
 
 class Statistics(models.Model):
