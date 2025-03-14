@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.db.models import Count, Max
 
@@ -57,11 +57,15 @@ def register_user(request):
 @login_required()
 def profile_user(request):
     user = request.user
-    
+    most_popular_quiz = None
     statistics = Statistics.objects.get(user=user)
-    popular = Quiz.published.annotate(result_count=Count('results')).filter(author=user)
-    most_popular_quiz = popular.order_by('-result_count').first()
 
+    if Quiz.objects.filter(author=user).exists():
+        popular = Quiz.published.annotate(result_count=Count('results')).filter(author=user)
+        most_popular_quiz = popular.order_by('-result_count').first()
+    else:
+        ...
+        
     if request.method == 'POST':
         form = UploadImageForm(request.POST, request.FILES)
         if form.is_valid():

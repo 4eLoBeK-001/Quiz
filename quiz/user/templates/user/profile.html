@@ -78,6 +78,7 @@
             <h1 class="lower-card-title answer-title pd20">Самый популярный тест</h1>
             <div class="container-quiz" style="margin: 0 20px 20px 20px;">
                 <div class="card">
+                    {% if most_popular_quiz != None %}
                     <div class="card-head">
                         <a href="">{{ most_popular_quiz.name }}</a>
                         <a href="{% url 'global_statistics' most_popular_quiz.id %}"><img src="{% static 'quiz_app/images/info.png' %}" class="info-pic"></a>
@@ -90,6 +91,14 @@
                             <a href="{% url 'take_quiz' most_popular_quiz.id %}">Начать викторину</a>
                         </div>
                     </div>
+                    {% else %}
+                    <div class="card-content">
+                        <p style="text-align: center;">Вы еще не создали ни одной викторины</p>
+                        <div class="global-card-actions-quiz nav-left">
+                            <a href="{% url 'create_quiz' %}">Создать</a>
+                        </div>
+                   </div>
+                    {% endif %}
                 </div>
 
             </div>
