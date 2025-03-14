@@ -42,7 +42,7 @@ def contacts(request):
                     subject='Новое сообщение с сайта',
                     message=full_message,
                     from_email=email,
-                    recipient_list=['Recipient\'s mail'],
+                    recipient_list=['grandinkv@gmail.com'],
                     fail_silently=False,
                 )
                 messages.success(request, message='Сообщение успешно отправлено')
@@ -54,9 +54,9 @@ def contacts(request):
                     'email': email,
                     'message': message,
                     'error': str(e),
-                    'detail': 'Скорее всего вы не настроили правильно переменные "EMAIL_HOST_USER" и "EMAIL_HOST_PASSWORD", не забудьте также про переменную "recipient_list"'
+                    'detail': 'Скорее всего вы не настроили правильно переменные "EMAIL_HOST_USER" и "EMAIL_HOST_PASSWORD"'
                 }
-                raise Exception('Скорее всего вы не настроили правильно переменные "EMAIL_HOST_USER" и "EMAIL_HOST_PASSWORD", не забудьте также про переменную "recipient_list"')
+                raise Exception('Скорее всего вы не настроили правильно переменные "EMAIL_HOST_USER" и "EMAIL_HOST_PASSWORD"')
 
     else:
         form = ContactForm()
