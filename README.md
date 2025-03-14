@@ -1,4 +1,11 @@
 # Викторина на Django
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
 
 ## Введение
@@ -12,7 +19,6 @@
 * [Используемые технологии](#основные-технологии)
 * [Основные страницы](#основные-страницы)
 * [Скриншоты сайта](#скриншоты-сайта)
-* [Скриншоты администратора](#скриншоты-администратора)
 
 ## Установка
 
@@ -71,8 +77,7 @@ EMAIL_HOST_PASSWORD = 'your_password'  # Не забудьте изменить
 
 ## Базовая страница шаблона
 
-(Base_template.jpg)
-
+![Base_template](https://github.com/user-attachments/assets/beb378bc-ab0d-4260-bd12-feef913c055a)
 
 
 ## Основные технологии
@@ -99,12 +104,14 @@ EMAIL_HOST_PASSWORD = 'your_password'  # Не забудьте изменить
 
 
 ## Скриншоты сайта
-(contacts.png)
-(profile.png)
-(statistics.png)
-(Quiz_list.png)
+**Контакты**
+![contacts](https://github.com/user-attachments/assets/c5bf6720-86d9-4ba9-bba9-693eb53241f6)
 
+**Список квизов**
+![Quiz_list](https://github.com/user-attachments/assets/1c7df244-7f4f-43e2-8a23-353f93969449)
 
-## Скриншоты администратора
+**Подробная статистика**
+![statistics](https://github.com/user-attachments/assets/5d7fba66-1d25-4960-b0a9-f7639eb036f3)
 
-скрины
+**Профиль**
+![profile](https://github.com/user-attachments/assets/89af4c01-178b-439d-bef2-9d1da845f318)
