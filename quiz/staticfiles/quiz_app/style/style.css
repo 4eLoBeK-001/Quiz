@@ -162,7 +162,8 @@ body {
     box-sizing: border-box;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     border-color: #007BFF;
     outline: none;
 }
@@ -1257,9 +1258,7 @@ input:checked + .slider:before {
     color: #333;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 91vh;
+    height: 86vh;
     margin: 0;
 }
 #status-code {
