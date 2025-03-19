@@ -61,6 +61,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+## Готово!
 
 Для корректной работы почты не забудьте заменить переменные `EMAIL_HOST_USER` и `EMAIL_HOST_PASSWORD`
 
