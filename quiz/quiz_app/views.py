@@ -100,7 +100,12 @@ def view_quizzes(request):
 def delete_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     quiz.delete()
-    return redirect(request.META.get('HTTP_REFERER'))
+    if request.method == 'POST':
+        referer = request.META.get('HTTP_REFERER')
+        if referer:
+            return redirect(referer)
+        else:
+            return redirect('view_quizzes')
 
 @login_required()
 @user_is_quiz_creator
@@ -160,7 +165,12 @@ def change_question(request, quiz_id, question_id):
 @user_is_quiz_creator
 def delete_question(request, question_id, quiz_id):
     Question.objects.filter(id=question_id, quiz_id=quiz_id).delete()
-    return redirect(request.META.get('HTTP_REFERER'))
+    if request.method == 'POST':
+        referer = request.META.get('HTTP_REFERER')
+        if referer:
+            return redirect(referer)
+        else:
+            return redirect(reverse('list_questions', args=[quiz_id]))
 
 @login_required()
 @user_is_quiz_creator
